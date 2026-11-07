@@ -1,113 +1,63 @@
-# Kino iOS — unsigned IPA build (PRIMARY build route).
+# Phase 4 step 1 — workflow addition for .github/workflows/ios.yml
 #
-# The owner explicitly chose GitHub Actions as the build route; a local
-# Mac/Xcode compile is only a fallback. Every push to main and every
-# manual run produces an unsigned .ipa artifact for Signulous re-signing.
+# HOW TO APPLY (user-maintained file — Muse cannot push .github/workflows/):
+# insert these four steps in the `build` job AFTER the "List schemes" step
+# and BEFORE the existing "Build (unsigned)" step. Everything else in
+# ios.yml stays as-is. The steps assume the repo checkout already contains
+# the vendored wrapper (Thirdparty/LibTorrent-Swift/, pushed with the
+# Phase 4 step 1 snapshot); only the C++ libtorrent tree is cloned here.
 #
-# Runner: macos-15 (GitHub-hosted). Xcode: 16 when
-# /Applications/Xcode_16.app exists on the runner, otherwise the runner
-# default. That path is checked, not assumed to exist.
+# TWO CORRECTIONS vs PHASE4-TORRENT-PLAN.md §4.2 (verified 2026-11-07):
+# 1. The cache step now has `id: libtorrent-cache`, and the build step's
+#    `if:` references `steps.libtorrent-cache.outputs.cache-hit` — the plan
+#    left a `<cache-step-id>` placeholder that would not evaluate.
+# 2. The clone step does NOT do `git clone --depth 1` + `checkout <sha>`:
+#    a depth-1 clone of the default branch does not contain the pinned
+#    RC_2_1 commit 6da363d (2026-09-24), so that checkout would fail.
+#    Instead it fetches exactly the pinned commit
+#    (`git fetch --depth 1 origin <sha>`; GitHub serves arbitrary SHAs).
 #
-# v3 changes (2026-11-07): runs #1–#3 all failed in the `xcodebuild
-# archive` step in ~8s with only "exit code 65" visible. `xcodebuild
-# -list` passes, so the scheme is fine; the archive action itself is
-# the suspect (it demands a signing identity even for an unsigned
-# build). This version builds instead of archiving: `xcodebuild build
-# -sdk iphoneos` with CODE_SIGNING_ALLOWED=NO produces an unsigned
-# .app, which is zipped into Payload/ as the .ipa — the standard way
-# to make an unsigned IPA in CI. The build log's error lines and tail
-# are written into the job summary, visible without signing in.
-name: iOS
+# Expected result on the first run: libtorrent-build/Release-iphoneos/
+# libtorrent-rasterbar.a exists (the `find` line proves the path the
+# pbxproj links), then the normal unsigned build compiles the vendored
+# wrapper + TorrentEngine stub against it.
 
-"on":
-  push:
-    branches: [main]
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: macos-15
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Show Xcode version
+      - name: Install libtorrent build deps
         run: |
-          xcodebuild -version
-          if [ -d /Applications/Xcode_16.app ]; then
-            sudo xcode-select -s /Applications/Xcode_16.app
-            echo "Selected Xcode 16"
-            xcodebuild -version
-          else
-            echo "Xcode_16.app not found; using the runner default Xcode"
-            ls /Applications | grep -i xcode || true
-          fi
+          brew install boost
+          cmake --version
+        # libtorrent CMakeLists requires Boost (find_public_dependency).
+        # cmake is preinstalled on macOS runners; the version line proves it.
+        # If a later step reports OpenSSL not found, add `brew install openssl`.
 
-      - name: List schemes
-        run: |
-          xcodebuild -list -project KinoiOS.xcodeproj | tee scheme-list.txt
-          {
-            echo "## Schemes and targets"
-            echo '```'
-            cat scheme-list.txt
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Build (unsigned)
-        run: |
-          set +e
-          xcodebuild build \
-            -project KinoiOS.xcodeproj \
-            -scheme KinoiOS \
-            -configuration Release \
-            -sdk iphoneos \
-            -derivedDataPath build/DerivedData \
-            CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGN_IDENTITY="" \
-            DEVELOPMENT_TEAM="" > build.log 2>&1
-          CODE=$?
-          echo "xcodebuild exit code: $CODE"
-          {
-            echo "## Build result"
-            echo "exit code: $CODE"
-            echo "### Error lines"
-            echo '```'
-            grep -i -m 60 "error:" build.log || echo "(no error: lines found)"
-            echo '```'
-            echo "### Last 40 lines of build log"
-            echo '```'
-            tail -n 40 build.log
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
-          exit $CODE
-
-      - name: Package unsigned IPA
-        run: |
-          APP_PATH="build/DerivedData/Build/Products/Release-iphoneos/KinoiOS.app"
-          if [ ! -d "$APP_PATH" ]; then
-            echo "KinoiOS.app not found after build"
-            find build -maxdepth 4 -name "*.app" -o -maxdepth 4 -name "Products" || true
-            exit 1
-          fi
-          rm -rf Payload KinoiOS-unsigned.ipa
-          mkdir -p Payload
-          cp -R "$APP_PATH" Payload/
-          /usr/bin/zip -r KinoiOS-unsigned.ipa Payload
-          ls -lh KinoiOS-unsigned.ipa
-          /usr/bin/unzip -l KinoiOS-unsigned.ipa
-
-      - name: Upload unsigned IPA
-        uses: actions/upload-artifact@v4
+      - name: Restore libtorrent build cache
+        id: libtorrent-cache
+        uses: actions/cache@v6
         with:
-          name: KinoiOS-unsigned-ipa
-          path: KinoiOS-unsigned.ipa
-          if-no-files-found: error
+          path: Thirdparty/LibTorrent-Swift/libtorrent-build
+          key: libtorrent-v1-${{ runner.os }}-${{ runner.arch }}-6da363d2994f17c0b3c0450d124cf73a31a73847-${{ hashFiles('Thirdparty/LibTorrent-Swift/LibTorrent/**', 'Thirdparty/LibTorrent-Swift/make.sh') }}
+          # exact-match key only (like iTorrent's); a different toolchain or
+          # wrapper revision must rebuild, never restore a stale .a.
 
-      - name: Upload build log
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-log
-          path: build.log
-          if-no-files-found: warn
+      - name: Clone libtorrent sources
+        run: |
+          if [ ! -d Thirdparty/LibTorrent-Swift/Thirdparty/libtorrent ]; then
+            mkdir -p Thirdparty/LibTorrent-Swift/Thirdparty
+            git init Thirdparty/LibTorrent-Swift/Thirdparty/libtorrent
+            git -C Thirdparty/LibTorrent-Swift/Thirdparty/libtorrent remote add origin https://github.com/arvidn/libtorrent.git
+            git -C Thirdparty/LibTorrent-Swift/Thirdparty/libtorrent fetch --depth 1 origin 6da363d2994f17c0b3c0450d124cf73a31a73847
+            git -C Thirdparty/LibTorrent-Swift/Thirdparty/libtorrent checkout FETCH_HEAD
+          fi
+          # Headers for the app build come from this clone; the .a below
+          # comes from the build (or the cache). Pinned: libtorrent 2.1.2.0,
+          # RC_2_1 commit 6da363d2994f17c0b3c0450d124cf73a31a73847.
+
+      - name: Configure + build libtorrent (cache miss only)
+        if: steps.libtorrent-cache.outputs.cache-hit != 'true'
+        run: |
+          cd Thirdparty/LibTorrent-Swift && ./make.sh
+          cmake --build libtorrent-build --config Release -- -sdk iphoneos
+          # Expected output: libtorrent-build/Release-iphoneos/libtorrent-rasterbar.a
+          # (the path the pbxproj links). Verify with the find below.
+          find libtorrent-build -name "*.a" | head
+          ls -lh libtorrent-build/Release-iphoneos/ || true
