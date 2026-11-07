@@ -521,7 +521,6 @@
 				3E0EA58654004A8591D8D085 /* BrowseView.swift in Sources */,
 				D164DC0234404AF894364F50 /* ArchiveDetailView.swift in Sources */,
 				751E037DFF5A964FAC3E09FF /* SwiftFile.swift in Sources */,
-				95ACFBE1A872C5F7B04DEDFF /* Test.cpp in Sources */,
 				0E1878F881E7EBE7E290835E /* FileEntry.m in Sources */,
 				8CBA6D28D1CB84789BF86223 /* Session.mm in Sources */,
 				170C4ADF8D0EDCDC702DA0F8 /* Session.swift in Sources */,
