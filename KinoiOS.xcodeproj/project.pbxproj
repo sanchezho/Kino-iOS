@@ -94,6 +94,7 @@
 				41845A6686682E80A00A3A8C,
 			);
 			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		609874F33224C0C09F1FEE42 = {
@@ -104,6 +105,7 @@
 				DDC4E06B1205A0687069B063,
 			);
 			name = Services;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		38DF21AEF4612506D6BE5CBE = {
@@ -117,6 +119,7 @@
 				E59A5D5ED1BBFD1E154DEFAE,
 			);
 			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		887A6F90336FF23D95C3914B = {
@@ -128,6 +131,7 @@
 				CAD677EA723F9EE1B9A1F927,
 			);
 			name = Resources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		2F3A6B1E78F896718625FF06 = {
