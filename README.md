@@ -17,7 +17,7 @@ bundled `plugin.js`).
   on the owner's Mac was not confirmed when this scaffold was written;
   the GitHub Actions workflow selects Xcode 16 on `macos-15` when
   available and otherwise uses the runner default).
-- Version: 0.2.1 (Phase 2.1)
+- Version: 0.3.0 (Phase 3)
 
 ## What works in Phase 1
 
@@ -109,6 +109,33 @@ Cinemeta Stremio catalog addon from the bundled seed. No API keys.
 - Cinemeta titles have no play button: Cinemeta is a catalog, it
   carries no video streams.
 
+## What works in Phase 3
+
+Phase 3 adds real stream sources to the Cinemeta detail, reusing the
+Stremio add-on model found in StreamVault (whose catalogs are
+user-configured Stremio add-ons). No API keys, no new tabs.
+
+- The Cinemeta detail now also lists **Fuentes (streams)** from a
+  configurable Stremio streaming add-on — default Torrentio
+  (`https://torrentio.strem.fun`, manifest id
+  `com.stremio.torrentio.addon`, verified live): `GET
+  {base}/stream/{type}/{imdbId}.json`. Each source shows its name and
+  details (size, quality, seeders when the add-on provides them).
+- **Direct-URL streams play**: a "Ver" button opens the existing
+  player (AVPlayer) with the stream URL.
+- **Torrent streams are listed, not played**: Torrentio's default
+  configuration returns `infoHash` + tracker/DHT sources and no
+  direct URL. Those rows show "Torrent — sin motor en iOS". Playing
+  a torrent on iOS would need a native torrent engine (libtorrent
+  build + background entitlements), a separate project that is not
+  part of this phase.
+- The add-on base URL is configurable in Ajustes ("Add-on de streams
+  (Stremio)"), persisted in UserDefaults; a pasted `/manifest.json`
+  suffix and trailing slashes are stripped. "Restablecer" restores
+  the Torrentio default.
+- Series are queried with the series imdb id only; an empty result
+  there is expected — episode ids are never invented.
+
 ## What does NOT work yet
 
 - Full plugin API: plugin search, fetching catalogs from GitHub,
@@ -117,7 +144,9 @@ Cinemeta Stremio catalog addon from the bundled seed. No API keys.
 - Chromecast / AirPlay sender, DLNA, EPG / live TV guide.
 - Accounts, sync, social features, recommendations, Kinobot.
 - TMDB (needs an API key) and the other seed plugins are still
-  catalog-only: Phase 2 playback is Internet Archive only.
+  catalog-only: Phase 3 playback is Internet Archive plus direct-URL
+  streams from the configured Stremio add-on; torrent streams are
+  listed but not playable (no torrent engine on iOS).
 
 ## Open in Xcode on a Mac
 
@@ -167,6 +196,7 @@ KinoiOS/
   Services/PlaybackService.swift      AVPlayer + positions + saved
   Services/ArchiveService.swift       Internet Archive plugin, native
   Services/CinemetaService.swift      Cinemeta catalog (Stremio addon)
+  Services/StremioStreamService.swift Stremio streaming add-on (Torrentio default)
   Views/                      Home, Search, Detail, Player, Library, Settings
   Views/BrowseView.swift      Paginated poster grid ("Ver más")
   Views/ArchiveDetailView.swift  Detail for Archive + Cinemeta titles

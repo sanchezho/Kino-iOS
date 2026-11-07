@@ -208,11 +208,18 @@ struct CinemetaDetailView: View {
     var item: CinemetaItem
     @EnvironmentObject private var cinemeta: CinemetaService
     @EnvironmentObject private var archive: ArchiveService
+    @EnvironmentObject private var streams: StremioStreamService
+    @EnvironmentObject private var playback: PlaybackService
     @State private var detail: CinemetaItem?
     @State private var detailError: String?
     @State private var archiveMatches: [ArchiveItem]?
     @State private var archiveSearchError: String?
     @State private var isSearchingArchive = false
+    @State private var streamList: [StremioStream]?
+    @State private var streamsError: String?
+    @State private var isLoadingStreams = false
+    @State private var addonName: String?
+    @State private var showingPlayer = false
 
     private var shown: CinemetaItem { detail ?? item }
 
@@ -324,11 +331,72 @@ struct CinemetaDetailView: View {
                         .font(.callout)
                         .foregroundStyle(.secondary)
                 }
+
+                // Fuentes del add-on de streams (Stremio/Torrentio):
+                // la lista real de fuentes de este título. Los streams
+                // con URL directa se reproducen; los torrents se listan
+                // pero no se pueden reproducir en iOS (sin motor torrent).
+                if isLoadingStreams && streamList == nil {
+                    ProgressView("Buscando fuentes…")
+                        .font(.callout)
+                } else if let streamList, !streamList.isEmpty {
+                    Text("Fuentes (streams)")
+                        .font(.headline)
+                    if let addonName {
+                        Text("Add-on: \(addonName)")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                    ForEach(streamList) { stream in
+                        HStack(alignment: .top, spacing: 12) {
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(stream.displayName)
+                                    .font(.subheadline)
+                                    .bold()
+                                if !stream.detailLine.isEmpty {
+                                    Text(stream.detailLine)
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
+                                if stream.isTorrent {
+                                    Text("Torrent — sin motor en iOS")
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                            Spacer()
+                            if stream.isDirect {
+                                Button {
+                                    playStream(stream)
+                                } label: {
+                                    Label("Ver", systemImage: "play.fill")
+                                }
+                                .buttonStyle(.bordered)
+                            }
+                        }
+                        Divider()
+                    }
+                } else if let streamsError {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(streamsError)
+                            .font(.callout)
+                            .foregroundStyle(.orange)
+                        Button("Reintentar") { Task { await loadStreams() } }
+                            .buttonStyle(.bordered)
+                    }
+                } else if streamList != nil {
+                    Text("Sin fuentes de este add-on para este título.")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                }
             }
             .padding()
         }
         .navigationTitle(item.title)
         .navigationBarTitleDisplayMode(.inline)
+        .sheet(isPresented: $showingPlayer) {
+            PlayerView()
+        }
         .task {
             guard detail == nil else { return }
             do {
@@ -337,6 +405,7 @@ struct CinemetaDetailView: View {
                 detailError = error.localizedDescription
             }
             await searchArchive()
+            await loadStreams()
         }
     }
 
@@ -351,5 +420,37 @@ struct CinemetaDetailView: View {
         } catch {
             archiveSearchError = error.localizedDescription
         }
+    }
+
+    /// Lists this title's streams from the configured Stremio add-on.
+    /// Series are queried with the series imdb id only; an empty
+    /// result is expected there — episode ids are never invented.
+    private func loadStreams() async {
+        isLoadingStreams = true
+        streamsError = nil
+        defer { isLoadingStreams = false }
+        addonName = await streams.manifestName()
+        do {
+            streamList = try await streams.streams(type: item.type, imdbId: item.id)
+        } catch {
+            streamsError = error.localizedDescription
+        }
+    }
+
+    /// Plays a direct-URL stream through the shared player.
+    private func playStream(_ stream: StremioStream) {
+        guard let urlString = stream.url, let url = URL(string: urlString) else { return }
+        let title = TitleItem(
+            id: "stremio:\(stream.id)",
+            title: shown.title,
+            kind: shown.kind,
+            posterURL: shown.posterURL,
+            synopsis: shown.overview ?? "",
+            year: shown.year,
+            pluginId: "stremio",
+            streamURL: url
+        )
+        playback.play(title)
+        showingPlayer = true
     }
 }

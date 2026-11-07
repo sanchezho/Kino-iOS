@@ -22,6 +22,7 @@
 		3E981AB29A274377885CF1C2 /* ArchiveItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D31E8A1C40241DA9CDCD338 /* ArchiveItem.swift */; };
 		00F60892DBD34872A56D458E /* ArchiveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E42707E1844DDBB3E11865 /* ArchiveService.swift */; };
 		1A0A26B1EA3B45A4B16B534D /* CinemetaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C093FDA845B4FD8BFCB4C57 /* CinemetaService.swift */; };
+		A15CA8E186B0AC9B144FDF8E /* StremioStreamService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9528A8D830081F190E4F3E1A /* StremioStreamService.swift */; };
 		3E0EA58654004A8591D8D085 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E474F6C36564CF194B3B612 /* BrowseView.swift */; };
 		D164DC0234404AF894364F50 /* ArchiveDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BBBA26F9E04EA2918BD3F3 /* ArchiveDetailView.swift */; };
 		9F401E4322FF0FF743A5F1A0 /* plugin-catalog-seed.json in Resources */ = {isa = PBXBuildFile; fileRef = CC21DDA4253BC5F9684B7E86 /* plugin-catalog-seed.json */; };
@@ -49,6 +50,7 @@
 		4D31E8A1C40241DA9CDCD338 /* ArchiveItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveItem.swift; sourceTree = "<group>"; };
 		47E42707E1844DDBB3E11865 /* ArchiveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveService.swift; sourceTree = "<group>"; };
 		4C093FDA845B4FD8BFCB4C57 /* CinemetaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemetaService.swift; sourceTree = "<group>"; };
+		9528A8D830081F190E4F3E1A /* StremioStreamService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StremioStreamService.swift; sourceTree = "<group>"; };
 		7E474F6C36564CF194B3B612 /* BrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseView.swift; sourceTree = "<group>"; };
 		60BBBA26F9E04EA2918BD3F3 /* ArchiveDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveDetailView.swift; sourceTree = "<group>"; };
 		CC21DDA4253BC5F9684B7E86 /* plugin-catalog-seed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = plugin-catalog-seed.json; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				DDC4E06B1205A0687069B063,
 				47E42707E1844DDBB3E11865,
 				4C093FDA845B4FD8BFCB4C57,
+				9528A8D830081F190E4F3E1A,
 			);
 			name = Services;
 			path = Services;
@@ -248,6 +251,7 @@
 				8184495C7B8FF369F3FF1169 /* PlaybackService.swift in Sources */,
 				00F60892DBD34872A56D458E /* ArchiveService.swift in Sources */,
 				1A0A26B1EA3B45A4B16B534D /* CinemetaService.swift in Sources */,
+				A15CA8E186B0AC9B144FDF8E /* StremioStreamService.swift in Sources */,
 				C2D3DAACE6549408EFBB473F /* HomeView.swift in Sources */,
 				0519E92AD7AD3B70CC016030 /* SearchView.swift in Sources */,
 				9F9F2DD5DEA3D803E1F7BDAB /* DetailView.swift in Sources */,
@@ -340,7 +344,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanchezho.KinoiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = iphoneos;
@@ -365,7 +369,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.2.1;
+				MARKETING_VERSION = 0.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanchezho.KinoiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = iphoneos;
