@@ -88,7 +88,7 @@ jobs:
       - name: Configure + build libtorrent (cache miss only)
         if: steps.libtorrent-cache.outputs.cache-hit != 'true'
         run: |
-          cd Thirdparty/LibTorrent-Swift && zsh make.sh
+          cd Thirdparty/LibTorrent-Swift && ./make.sh
           cmake --build libtorrent-build --config Release -- -sdk iphoneos
           # Expected output: libtorrent-build/Release-iphoneos/libtorrent-rasterbar.a
           # (the path the pbxproj links). Verify with the find below.
