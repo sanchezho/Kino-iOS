@@ -221,6 +221,8 @@ struct CinemetaDetailView: View {
     @State private var isLoadingStreams = false
     @State private var addonName: String?
     @State private var showingPlayer = false
+    /// Local-playback error per lowercased infoHash; never touches engine state.
+    @State private var torrentPlayError: [String: String] = [:]
 
     private var shown: CinemetaItem { detail ?? item }
 
@@ -336,8 +338,8 @@ struct CinemetaDetailView: View {
                 // Fuentes del add-on de streams (Stremio/Torrentio):
                 // la lista real de fuentes de este título. Los streams
                 // con URL directa se reproducen; los torrents se descargan
-                // con el motor (paso 4-2) y su reproducción llega con el
-                // servidor HTTP local (paso 3).
+                // con el motor (paso 4-2) y se reproducen con el servidor
+                // HTTP local (paso 3).
                 if isLoadingStreams && streamList == nil {
                     ProgressView("Buscando fuentes…")
                         .font(.callout)
@@ -469,9 +471,11 @@ struct CinemetaDetailView: View {
             VStack(alignment: .leading, spacing: 2) {
                 Text("Listo para reproducir — \(fileName)")
                     .font(.caption)
-                Text("La reproducción por HTTP local llega en el paso 3.")
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
+                if let error = torrentPlayError[stream.infoHash?.lowercased() ?? ""] {
+                    Text(error)
+                        .font(.caption)
+                        .foregroundStyle(.orange)
+                }
             }
         case .some(.unsupportedFormat(_, let format)):
             Text("Este archivo es \(format): AVPlayer no lo reproduce")
@@ -482,8 +486,15 @@ struct CinemetaDetailView: View {
                 .font(.caption)
                 .foregroundStyle(.orange)
         case .some(.finished(let fileName)):
-            Text("Descarga completa — \(fileName)")
-                .font(.caption)
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Descarga completa — \(fileName)")
+                    .font(.caption)
+                if let error = torrentPlayError[stream.infoHash?.lowercased() ?? ""] {
+                    Text(error)
+                        .font(.caption)
+                        .foregroundStyle(.orange)
+                }
+            }
         }
     }
 
@@ -501,9 +512,37 @@ struct CinemetaDetailView: View {
                 torrentEngine.addStream(stream, title: shown.title)
             }
             .buttonStyle(.bordered)
+        case .some(.readyToPlay), .some(.finished):
+            Button("Ver") {
+                playTorrent(stream)
+            }
+            .buttonStyle(.bordered)
         default:
             EmptyView()
         }
+    }
+
+    /// Plays a torrent's selected file through the local HTTP range server.
+    /// The torrent keeps downloading after the player is dismissed.
+    private func playTorrent(_ stream: StremioStream) {
+        guard let infoHash = stream.infoHash?.lowercased(), !infoHash.isEmpty else { return }
+        guard let localURL = torrentEngine.startServer(for: infoHash) else {
+            torrentPlayError[infoHash] = "No se pudo iniciar la reproducción local."
+            return
+        }
+        torrentPlayError[infoHash] = nil
+        let title = TitleItem(
+            id: "torrent:\(infoHash)",
+            title: shown.title,
+            kind: shown.kind,
+            posterURL: shown.posterURL,
+            synopsis: shown.overview ?? "",
+            year: shown.year,
+            pluginId: "torrent",
+            streamURL: localURL
+        )
+        playback.play(title)
+        showingPlayer = true
     }
 
     private static func formatRate(_ bytesPerSecond: UInt64) -> String {

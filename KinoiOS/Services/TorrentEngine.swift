@@ -5,8 +5,8 @@ enum TorrentPlayState: Equatable {
     case fetchingMetadata(fileName: String?)
     /// `progress` is 0–1 of the WANTED file (not the whole torrent).
     case downloading(progress: Double, rate: UInt64, downloaded: UInt64, total: UInt64, fileName: String)
-    /// Start threshold reached and the file is AVPlayer-playable. Playback
-    /// itself waits for step 3 (local HTTP server); nothing starts a player.
+    /// Start threshold reached and the file is AVPlayer-playable; playback
+    /// goes through the local HTTP server (`startServer(for:)`).
     case readyToPlay(fileName: String, downloaded: UInt64, total: UInt64)
     case unsupportedFormat(fileName: String, format: String)
     case failed(message: String)
@@ -14,7 +14,8 @@ enum TorrentPlayState: Equatable {
 }
 
 /// Phase 4 step 2 — libtorrent session, magnet add, file selection and
-/// progress. No local HTTP server / playback yet (step 3).
+/// progress. Step 3 added the local HTTP server (`startServer(for:)`) so a
+/// ready file actually plays through AVPlayer.
 ///
 /// Threading: libtorrent delegate callbacks may arrive on background
 /// threads. Every one of them hops to the main queue before touching any
@@ -34,6 +35,10 @@ final class TorrentEngine: NSObject, ObservableObject, SessionDelegate {
     @Published private(set) var states: [String: TorrentPlayState] = [:]
 
     private(set) var session: Session?
+
+    /// Documents/torrents — libtorrent's save_path; set by `ensureSession()`.
+    private(set) var downloadsDirectory: URL?
+    private let httpServer = TorrentHTTPServer()
 
     private var handles: [String: TorrentHandle] = [:]
     private var pendingFileIdx: [String: Int] = [:]
@@ -61,6 +66,7 @@ final class TorrentEngine: NSObject, ObservableObject, SessionDelegate {
         let support = fileManager.urls(for: .applicationSupportDirectory, in: .userDomainMask).first
             ?? fileManager.temporaryDirectory
         let downloadPath = documents.appendingPathComponent("torrents")
+        downloadsDirectory = downloadPath
         let statePath = support.appendingPathComponent("kino-torrents")
         try? fileManager.createDirectory(at: downloadPath, withIntermediateDirectories: true)
         try? fileManager.createDirectory(at: statePath, withIntermediateDirectories: true)
@@ -135,6 +141,27 @@ final class TorrentEngine: NSObject, ObservableObject, SessionDelegate {
             session?.removeTorrent(handle, deleteFiles: deleteFiles)
         }
         clearEntries(for: hash)
+    }
+
+    /// Starts the loopback HTTP server for the selected file of `infoHash`
+    /// and returns its stream URL. FileEntry.path is relative to save_path
+    /// (including the torrent folder for multi-file torrents), so the on-disk
+    /// file is downloadsDirectory + file.path. Returns nil if no file is
+    /// selected, the file is not on disk yet, or the server fails to start.
+    /// The torrent keeps running; stopServer() only frees the port.
+    func startServer(for infoHash: String) -> URL? {
+        let hash = infoHash.lowercased()
+        guard let handle = handles[hash],
+              let index = selectedFile[hash],
+              let directory = downloadsDirectory else { return nil }
+        let files = handle.snapshot.files
+        guard index >= 0, index < files.count else { return nil }
+        let fileURL = directory.appendingPathComponent(files[index].path)
+        return httpServer.start(fileURL: fileURL)
+    }
+
+    func stopServer() {
+        httpServer.stop()
     }
 
     func pauseAll() {

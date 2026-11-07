@@ -56,6 +56,21 @@
 		AB96CF64ABE9D102B744AB50 /* TorrentEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA868364DBE923A48A3EB764 /* TorrentEngine.swift */; };
 		E1158233D731FED78AF76183 /* libtorrent-rasterbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBB78B324724072977A0FB1 /* libtorrent-rasterbar.a */; };
 		B18453F260811899E667B9E1 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C006EDB1484242D950B3FA4 /* libiconv.tbd */; };
+		6CD0A5E20000000000000002 /* GCDWebServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E10000000000000002 /* GCDWebServer.m */; };
+		6CD0A5E20000000000000004 /* GCDWebServerConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E10000000000000004 /* GCDWebServerConnection.m */; };
+		6CD0A5E20000000000000006 /* GCDWebServerFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E10000000000000006 /* GCDWebServerFunctions.m */; };
+		6CD0A5E2000000000000000A /* GCDWebServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E1000000000000000A /* GCDWebServerRequest.m */; };
+		6CD0A5E2000000000000000C /* GCDWebServerResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E1000000000000000C /* GCDWebServerResponse.m */; };
+		6CD0A5E2000000000000000E /* GCDWebServerDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E1000000000000000E /* GCDWebServerDataRequest.m */; };
+		6CD0A5E20000000000000010 /* GCDWebServerFileRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E10000000000000010 /* GCDWebServerFileRequest.m */; };
+		6CD0A5E20000000000000012 /* GCDWebServerMultiPartFormRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E10000000000000012 /* GCDWebServerMultiPartFormRequest.m */; };
+		6CD0A5E20000000000000014 /* GCDWebServerURLEncodedFormRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E10000000000000014 /* GCDWebServerURLEncodedFormRequest.m */; };
+		6CD0A5E20000000000000016 /* GCDWebServerDataResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E10000000000000016 /* GCDWebServerDataResponse.m */; };
+		6CD0A5E20000000000000018 /* GCDWebServerErrorResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E10000000000000018 /* GCDWebServerErrorResponse.m */; };
+		6CD0A5E2000000000000001A /* GCDWebServerFileResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E1000000000000001A /* GCDWebServerFileResponse.m */; };
+		6CD0A5E2000000000000001C /* GCDWebServerStreamedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E1000000000000001C /* GCDWebServerStreamedResponse.m */; };
+		6CD0A5E2000000000000001D /* TorrentHTTPServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E1000000000000001D /* TorrentHTTPServer.swift */; };
+		6CD0A5E2000000000000001E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD0A5E1000000000000001E /* libz.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,6 +152,36 @@
 		FA868364DBE923A48A3EB764 /* TorrentEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentEngine.swift; sourceTree = "<group>"; };
 		ABBB78B324724072977A0FB1 /* libtorrent-rasterbar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "Thirdparty/LibTorrent-Swift/libtorrent-build/Release-iphoneos/libtorrent-rasterbar.a"; sourceTree = SOURCE_ROOT; };
 		1C006EDB1484242D950B3FA4 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		6CD0A5E10000000000000001 /* GCDWebServer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDWebServer.h; sourceTree = "<group>"; };
+		6CD0A5E10000000000000002 /* GCDWebServer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDWebServer.m; sourceTree = "<group>"; };
+		6CD0A5E10000000000000003 /* GCDWebServerConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDWebServerConnection.h; sourceTree = "<group>"; };
+		6CD0A5E10000000000000004 /* GCDWebServerConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerConnection.m; sourceTree = "<group>"; };
+		6CD0A5E10000000000000005 /* GCDWebServerFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDWebServerFunctions.h; sourceTree = "<group>"; };
+		6CD0A5E10000000000000006 /* GCDWebServerFunctions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerFunctions.m; sourceTree = "<group>"; };
+		6CD0A5E10000000000000007 /* GCDWebServerHTTPStatusCodes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDWebServerHTTPStatusCodes.h; sourceTree = "<group>"; };
+		6CD0A5E10000000000000008 /* GCDWebServerPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDWebServerPrivate.h; sourceTree = "<group>"; };
+		6CD0A5E10000000000000009 /* GCDWebServerRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDWebServerRequest.h; sourceTree = "<group>"; };
+		6CD0A5E1000000000000000A /* GCDWebServerRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerRequest.m; sourceTree = "<group>"; };
+		6CD0A5E1000000000000000B /* GCDWebServerResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDWebServerResponse.h; sourceTree = "<group>"; };
+		6CD0A5E1000000000000000C /* GCDWebServerResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerResponse.m; sourceTree = "<group>"; };
+		6CD0A5E1000000000000000D /* GCDWebServerDataRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDWebServerDataRequest.h; sourceTree = "<group>"; };
+		6CD0A5E1000000000000000E /* GCDWebServerDataRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerDataRequest.m; sourceTree = "<group>"; };
+		6CD0A5E1000000000000000F /* GCDWebServerFileRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDWebServerFileRequest.h; sourceTree = "<group>"; };
+		6CD0A5E10000000000000010 /* GCDWebServerFileRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerFileRequest.m; sourceTree = "<group>"; };
+		6CD0A5E10000000000000011 /* GCDWebServerMultiPartFormRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDWebServerMultiPartFormRequest.h; sourceTree = "<group>"; };
+		6CD0A5E10000000000000012 /* GCDWebServerMultiPartFormRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerMultiPartFormRequest.m; sourceTree = "<group>"; };
+		6CD0A5E10000000000000013 /* GCDWebServerURLEncodedFormRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDWebServerURLEncodedFormRequest.h; sourceTree = "<group>"; };
+		6CD0A5E10000000000000014 /* GCDWebServerURLEncodedFormRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerURLEncodedFormRequest.m; sourceTree = "<group>"; };
+		6CD0A5E10000000000000015 /* GCDWebServerDataResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDWebServerDataResponse.h; sourceTree = "<group>"; };
+		6CD0A5E10000000000000016 /* GCDWebServerDataResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerDataResponse.m; sourceTree = "<group>"; };
+		6CD0A5E10000000000000017 /* GCDWebServerErrorResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDWebServerErrorResponse.h; sourceTree = "<group>"; };
+		6CD0A5E10000000000000018 /* GCDWebServerErrorResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerErrorResponse.m; sourceTree = "<group>"; };
+		6CD0A5E10000000000000019 /* GCDWebServerFileResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDWebServerFileResponse.h; sourceTree = "<group>"; };
+		6CD0A5E1000000000000001A /* GCDWebServerFileResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerFileResponse.m; sourceTree = "<group>"; };
+		6CD0A5E1000000000000001B /* GCDWebServerStreamedResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GCDWebServerStreamedResponse.h; sourceTree = "<group>"; };
+		6CD0A5E1000000000000001C /* GCDWebServerStreamedResponse.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GCDWebServerStreamedResponse.m; sourceTree = "<group>"; };
+		6CD0A5E1000000000000001D /* TorrentHTTPServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentHTTPServer.swift; sourceTree = "<group>"; };
+		6CD0A5E1000000000000001E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +194,7 @@
 				E1158233D731FED78AF76183 /* libtorrent-rasterbar.a in Frameworks */,
 				B18453F260811899E667B9E1 /* libiconv.tbd in Frameworks */,
 				0ADE0EAB207A4C7D9A18C49F /* SystemConfiguration.framework in Frameworks */,
+				6CD0A5E2000000000000001E /* libz.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +247,7 @@
 				4C093FDA845B4FD8BFCB4C57,
 				9528A8D830081F190E4F3E1A,
 				FA868364DBE923A48A3EB764,
+				6CD0A5E1000000000000001D /* TorrentHTTPServer.swift */,
 			);
 			name = Services;
 			path = Services;
@@ -428,9 +475,73 @@
 			isa = PBXGroup;
 			children = (
 				3578284BA75442F98C010B7E,
+				6CD0A5E30000000000000004 /* GCDWebServer */,
 			);
 			name = Thirdparty;
 			path = Thirdparty;
+			sourceTree = "<group>";
+		};
+		6CD0A5E30000000000000001 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				6CD0A5E10000000000000001 /* GCDWebServer.h */,
+				6CD0A5E10000000000000002 /* GCDWebServer.m */,
+				6CD0A5E10000000000000003 /* GCDWebServerConnection.h */,
+				6CD0A5E10000000000000004 /* GCDWebServerConnection.m */,
+				6CD0A5E10000000000000005 /* GCDWebServerFunctions.h */,
+				6CD0A5E10000000000000006 /* GCDWebServerFunctions.m */,
+				6CD0A5E10000000000000007 /* GCDWebServerHTTPStatusCodes.h */,
+				6CD0A5E10000000000000008 /* GCDWebServerPrivate.h */,
+				6CD0A5E10000000000000009 /* GCDWebServerRequest.h */,
+				6CD0A5E1000000000000000A /* GCDWebServerRequest.m */,
+				6CD0A5E1000000000000000B /* GCDWebServerResponse.h */,
+				6CD0A5E1000000000000000C /* GCDWebServerResponse.m */,
+			);
+			name = Core;
+			path = Core;
+			sourceTree = "<group>";
+		};
+		6CD0A5E30000000000000002 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				6CD0A5E1000000000000000D /* GCDWebServerDataRequest.h */,
+				6CD0A5E1000000000000000E /* GCDWebServerDataRequest.m */,
+				6CD0A5E1000000000000000F /* GCDWebServerFileRequest.h */,
+				6CD0A5E10000000000000010 /* GCDWebServerFileRequest.m */,
+				6CD0A5E10000000000000011 /* GCDWebServerMultiPartFormRequest.h */,
+				6CD0A5E10000000000000012 /* GCDWebServerMultiPartFormRequest.m */,
+				6CD0A5E10000000000000013 /* GCDWebServerURLEncodedFormRequest.h */,
+				6CD0A5E10000000000000014 /* GCDWebServerURLEncodedFormRequest.m */,
+			);
+			name = Requests;
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		6CD0A5E30000000000000003 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				6CD0A5E10000000000000015 /* GCDWebServerDataResponse.h */,
+				6CD0A5E10000000000000016 /* GCDWebServerDataResponse.m */,
+				6CD0A5E10000000000000017 /* GCDWebServerErrorResponse.h */,
+				6CD0A5E10000000000000018 /* GCDWebServerErrorResponse.m */,
+				6CD0A5E10000000000000019 /* GCDWebServerFileResponse.h */,
+				6CD0A5E1000000000000001A /* GCDWebServerFileResponse.m */,
+				6CD0A5E1000000000000001B /* GCDWebServerStreamedResponse.h */,
+				6CD0A5E1000000000000001C /* GCDWebServerStreamedResponse.m */,
+			);
+			name = Responses;
+			path = Responses;
+			sourceTree = "<group>";
+		};
+		6CD0A5E30000000000000004 /* GCDWebServer */ = {
+			isa = PBXGroup;
+			children = (
+				6CD0A5E30000000000000001 /* Core */,
+				6CD0A5E30000000000000002 /* Requests */,
+				6CD0A5E30000000000000003 /* Responses */,
+			);
+			name = GCDWebServer;
+			path = GCDWebServer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -544,6 +655,20 @@
 				D081E48292B82E5BB0D3AE6A /* NSData+Hex.m in Sources */,
 				16BFD191AE1E33D723E7EE61 /* NSData+Sha1Hash.mm in Sources */,
 				AB96CF64ABE9D102B744AB50 /* TorrentEngine.swift in Sources */,
+				6CD0A5E2000000000000001D /* TorrentHTTPServer.swift in Sources */,
+				6CD0A5E20000000000000002 /* GCDWebServer.m in Sources */,
+				6CD0A5E20000000000000004 /* GCDWebServerConnection.m in Sources */,
+				6CD0A5E20000000000000006 /* GCDWebServerFunctions.m in Sources */,
+				6CD0A5E2000000000000000A /* GCDWebServerRequest.m in Sources */,
+				6CD0A5E2000000000000000C /* GCDWebServerResponse.m in Sources */,
+				6CD0A5E2000000000000000E /* GCDWebServerDataRequest.m in Sources */,
+				6CD0A5E20000000000000010 /* GCDWebServerFileRequest.m in Sources */,
+				6CD0A5E20000000000000012 /* GCDWebServerMultiPartFormRequest.m in Sources */,
+				6CD0A5E20000000000000014 /* GCDWebServerURLEncodedFormRequest.m in Sources */,
+				6CD0A5E20000000000000016 /* GCDWebServerDataResponse.m in Sources */,
+				6CD0A5E20000000000000018 /* GCDWebServerErrorResponse.m in Sources */,
+				6CD0A5E2000000000000001A /* GCDWebServerFileResponse.m in Sources */,
+				6CD0A5E2000000000000001C /* GCDWebServerStreamedResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -644,6 +769,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Thirdparty/LibTorrent-Swift/**",
+					"$(PROJECT_DIR)/Thirdparty/GCDWebServer/**",
 					"$(PROJECT_DIR)/Thirdparty/LibTorrent-Swift/Thirdparty/libtorrent/include",
 					/opt/homebrew/include,
 				);
@@ -687,6 +813,7 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Thirdparty/LibTorrent-Swift/**",
+					"$(PROJECT_DIR)/Thirdparty/GCDWebServer/**",
 					"$(PROJECT_DIR)/Thirdparty/LibTorrent-Swift/Thirdparty/libtorrent/include",
 					/opt/homebrew/include,
 				);
