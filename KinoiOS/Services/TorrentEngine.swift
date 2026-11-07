@@ -89,7 +89,7 @@ final class TorrentEngine: NSObject, ObservableObject, SessionDelegate {
             settings: settings,
             storages: [:]
         )
-        created.addDelegate(self)
+        created.add(self)
         session = created
         return created
     }
