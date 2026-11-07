@@ -17,7 +17,7 @@ bundled `plugin.js`).
   on the owner's Mac was not confirmed when this scaffold was written;
   the GitHub Actions workflow selects Xcode 16 on `macos-15` when
   available and otherwise uses the runner default).
-- Version: 0.2.0 (Phase 2)
+- Version: 0.2.1 (Phase 2.1)
 
 ## What works in Phase 1
 
@@ -61,6 +61,12 @@ Cinemeta Stremio catalog addon from the bundled seed. No API keys.
   Reproducir button that first resolves the stream and only then opens
   the player. Series list their episodes (natural order, SxxExx
   numbering when all files match) with per-episode play buttons.
+- Detail (Cinemeta), Phase 2.1: the detail now searches Internet Archive
+  for the same title automatically. When the title is in the public-domain
+  archive, its matches are listed below with a play link (each opens the
+  Archive detail, which resolves the stream and plays it). New commercial
+  releases are not in the archive and show an explicit notice instead of
+  the old static "no video" message.
 - Player: AVPlayer over the resolved archive.org MP4/WebM URL, with a
   visible error state when the player item fails (Phase 1 showed a
   black screen). Continue-watching and saved titles now cover Archive

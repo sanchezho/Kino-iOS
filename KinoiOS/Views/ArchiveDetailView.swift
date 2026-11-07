@@ -199,13 +199,20 @@ struct ArchiveDetailView: View {
 
 /// Detail for a Cinemeta title: poster, year, rating, genres, cast and
 /// description. Cinemeta is a catalog — it has no video streams, so
-/// there is no play button here; playback in this phase comes from
-/// Internet Archive (see the Buscar tab).
+/// there is no play button here. Instead the detail searches Internet
+/// Archive for the same title (see `searchArchive`): when the title
+/// is in the public-domain archive, its matches are listed below with
+/// a play link; new commercial releases are not in the archive and
+/// cannot be played from these catalogs.
 struct CinemetaDetailView: View {
     var item: CinemetaItem
     @EnvironmentObject private var cinemeta: CinemetaService
+    @EnvironmentObject private var archive: ArchiveService
     @State private var detail: CinemetaItem?
     @State private var detailError: String?
+    @State private var archiveMatches: [ArchiveItem]?
+    @State private var archiveSearchError: String?
+    @State private var isSearchingArchive = false
 
     private var shown: CinemetaItem { detail ?? item }
 
@@ -264,9 +271,59 @@ struct CinemetaDetailView: View {
                         .foregroundStyle(.orange)
                 }
 
-                Label("Cinemeta es solo un catálogo: no trae video. Si el título está en Internet Archive, búscalo en la pestaña Buscar.", systemImage: "info.circle")
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
+                // Puente a Internet Archive: el mismo título, si está
+                // en el archivo público, se puede reproducir desde aquí.
+                if isSearchingArchive && archiveMatches == nil {
+                    ProgressView("Buscando en Internet Archive…")
+                        .font(.callout)
+                } else if let matches = archiveMatches, !matches.isEmpty {
+                    Text("Disponible en Internet Archive")
+                        .font(.headline)
+                    ForEach(matches) { match in
+                        NavigationLink(value: match) {
+                            HStack(alignment: .top, spacing: 12) {
+                                AsyncImage(url: match.posterURL) { image in
+                                    image
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                } placeholder: {
+                                    RoundedRectangle(cornerRadius: 6)
+                                        .fill(Color.accentColor.opacity(0.2))
+                                }
+                                .frame(width: 60, height: 90)
+                                .clipped()
+                                .cornerRadius(6)
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(match.title)
+                                        .font(.subheadline)
+                                        .bold()
+                                    if let year = match.year {
+                                        Text(String(year))
+                                            .font(.caption)
+                                            .foregroundStyle(.secondary)
+                                    }
+                                    Label("Ver", systemImage: "play.fill")
+                                        .font(.caption)
+                                }
+                                Spacer()
+                            }
+                        }
+                        .buttonStyle(.plain)
+                        Divider()
+                    }
+                } else if let archiveSearchError {
+                    VStack(alignment: .leading, spacing: 6) {
+                        Text(archiveSearchError)
+                            .font(.callout)
+                            .foregroundStyle(.orange)
+                        Button("Reintentar") { Task { await searchArchive() } }
+                            .buttonStyle(.bordered)
+                    }
+                } else if archiveMatches != nil {
+                    Label("Este título no está en Internet Archive. El archivo solo tiene películas de dominio público; los estrenos como este no se pueden reproducir desde estos catálogos.", systemImage: "info.circle")
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
+                }
             }
             .padding()
         }
@@ -279,6 +336,20 @@ struct CinemetaDetailView: View {
             } catch {
                 detailError = error.localizedDescription
             }
+            await searchArchive()
+        }
+    }
+
+    /// Searches Internet Archive for this title. A match opens the
+    /// Archive detail, which resolves the stream and plays it.
+    private func searchArchive() async {
+        isSearchingArchive = true
+        archiveSearchError = nil
+        defer { isSearchingArchive = false }
+        do {
+            archiveMatches = try await archive.search(query: item.title)
+        } catch {
+            archiveSearchError = error.localizedDescription
         }
     }
 }

@@ -9,7 +9,7 @@ struct SettingsView: View {
             List {
                 Section("Acerca de") {
                     LabeledContent("App", value: "Kino iOS")
-                    LabeledContent("Versión", value: "0.2.0 (Fase 2)")
+                    LabeledContent("Versión", value: "0.2.1 (Fase 2.1)")
                     LabeledContent("Bundle ID", value: "com.sanchezho.KinoiOS")
                     LabeledContent("iOS mínimo", value: "17.0")
                     Text("Reescritura limpia para iOS de Kino TV. No es una conversión del APK de Android: la interfaz, la reproducción y el runtime de plugins están reescritos en Swift. Fase 2: catálogos reales de Internet Archive y Cinemeta, con pósters y reproducción.")
