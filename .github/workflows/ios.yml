@@ -4,9 +4,10 @@
 # Mac/Xcode compile is only a fallback. Every push to main and every
 # manual run produces an unsigned .ipa artifact for Signulous re-signing.
 #
-# Runner: macos-15 (GitHub-hosted). Xcode: 16 when
-# /Applications/Xcode_16.app exists on the runner, otherwise the runner
-# default. That path is checked, not assumed to exist.
+# Runner: macos-26 (GitHub-hosted). Xcode: 26.4+ (SwiftVLC needs
+# swift-tools 6.3, which Xcode 16 on macos-15 cannot build). The step
+# below picks the newest installed Xcode 26.4/26.5/26.6; that path is
+# checked, not assumed to exist.
 #
 # v3 changes (2026-11-07): runs #1–#3 all failed in the `xcodebuild
 # archive` step in ~8s with only "exit code 65" visible. `xcodebuild
@@ -26,22 +27,32 @@ name: iOS
 
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-26
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Show Xcode version
         run: |
+          # Phase 4b: SwiftVLC needs swift-tools 6.3 → Xcode 26.4+.
+          # Pick the newest installed 26.4/26.5/26.6; fall back to the
+          # runner default (which must itself be >= 26.4 on this image).
           xcodebuild -version
-          if [ -d /Applications/Xcode_16.app ]; then
-            sudo xcode-select -s /Applications/Xcode_16.app
-            echo "Selected Xcode 16"
-            xcodebuild -version
-          else
-            echo "Xcode_16.app not found; using the runner default Xcode"
+          SELECTED=""
+          for v in 26.6 26.5 26.4; do
+            if [ -d "/Applications/Xcode_$v.app" ]; then
+              sudo xcode-select -s "/Applications/Xcode_$v.app"
+              SELECTED="$v"
+              echo "Selected Xcode $v"
+              break
+            fi
+          done
+          if [ -z "$SELECTED" ]; then
+            echo "No Xcode 26.4+ app found; using the runner default Xcode"
             ls /Applications | grep -i xcode || true
           fi
+          xcodebuild -version
+          swift --version
 
       - name: List schemes
         run: |
@@ -68,9 +79,12 @@ jobs:
         uses: actions/cache@v6
         with:
           path: Thirdparty/LibTorrent-Swift/libtorrent-build
-          key: libtorrent-v1-${{ runner.os }}-${{ runner.arch }}-6da363d2994f17c0b3c0450d124cf73a31a73847-${{ hashFiles('Thirdparty/LibTorrent-Swift/LibTorrent/**', 'Thirdparty/LibTorrent-Swift/make.sh') }}
+          key: libtorrent-v2-${{ runner.os }}-${{ runner.arch }}-6da363d2994f17c0b3c0450d124cf73a31a73847-${{ hashFiles('Thirdparty/LibTorrent-Swift/LibTorrent/**', 'Thirdparty/LibTorrent-Swift/make.sh') }}
           # exact-match key only (like iTorrent's); a different toolchain or
           # wrapper revision must rebuild, never restore a stale .a.
+          # v2 (2026-11-07, Phase 4b): toolchain moved Xcode 16 → 26.4
+          # with the macos-15 → macos-26 runner change, so the .a built
+          # under v1 must not be reused.
 
       - name: Clone libtorrent sources
         run: |
