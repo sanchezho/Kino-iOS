@@ -1,0 +1,378 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3A9797AEF5773CD6D293E956 /* KinoiOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE562B1925454BC18AD7F22 /* KinoiOSApp.swift */; };
+		B89F36C5D65DA7F1E0CF3D51 /* Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41DB2F7FDCAE3871989C290 /* Plugin.swift */; };
+		9C3A62E9C183879A5F51B621 /* TitleItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41845A6686682E80A00A3A8C /* TitleItem.swift */; };
+		1CE3D504AB315F6B835CA059 /* PluginCatalogService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 197F09AFEF273FA93266B76F /* PluginCatalogService.swift */; };
+		D6AFF05B92D1130251328B6D /* PluginRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D67DFE5A6D335393EFF0023 /* PluginRuntime.swift */; };
+		8184495C7B8FF369F3FF1169 /* PlaybackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC4E06B1205A0687069B063 /* PlaybackService.swift */; };
+		C2D3DAACE6549408EFBB473F /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24E874AFD9223B296FF07970 /* HomeView.swift */; };
+		0519E92AD7AD3B70CC016030 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC70345CB635A70B861155BA /* SearchView.swift */; };
+		9F9F2DD5DEA3D803E1F7BDAB /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4F168580712F347ED76A599 /* DetailView.swift */; };
+		76133A0A725A4EA7E4A09EAB /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FB7AD9877840471011BE67 /* PlayerView.swift */; };
+		E05ACC492FC491CB3853639A /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE008C7EF062F693D5CACF73 /* LibraryView.swift */; };
+		35B72693CF868B8A650C62C6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A5D5ED1BBFD1E154DEFAE /* SettingsView.swift */; };
+		9F401E4322FF0FF743A5F1A0 /* plugin-catalog-seed.json in Resources */ = {isa = PBXBuildFile; fileRef = CC21DDA4253BC5F9684B7E86 /* plugin-catalog-seed.json */; };
+		C667227ADAC563A90CF92184 /* plugin.js in Resources */ = {isa = PBXBuildFile; fileRef = 8605E3894E7E9AA4D7635361 /* plugin.js */; };
+		C71F975C03C67472F19D68AA /* kino-plugin.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A6A4A445A997F474DB2BEB7 /* kino-plugin.json */; };
+		D42F00F423AF288BB914D972 /* README-PROVENANCE.md in Resources */ = {isa = PBXBuildFile; fileRef = CAD677EA723F9EE1B9A1F927 /* README-PROVENANCE.md */; };
+		EC4C97D60C61B4B8BA2DF4B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C766093AF47A49727CFA708F /* Assets.xcassets */; };
+		9DA42EECB7E29CBAAE34A2FA /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0CDDC9247BE08CEBD301157 /* AVKit.framework */; };
+		DD0AF99DA468016448B07508 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C65B34DE559BBEE45714CF /* JavaScriptCore.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		5AE562B1925454BC18AD7F22 /* KinoiOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KinoiOSApp.swift; sourceTree = "<group>"; };
+		E41DB2F7FDCAE3871989C290 /* Plugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plugin.swift; sourceTree = "<group>"; };
+		41845A6686682E80A00A3A8C /* TitleItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleItem.swift; sourceTree = "<group>"; };
+		197F09AFEF273FA93266B76F /* PluginCatalogService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginCatalogService.swift; sourceTree = "<group>"; };
+		1D67DFE5A6D335393EFF0023 /* PluginRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PluginRuntime.swift; sourceTree = "<group>"; };
+		DDC4E06B1205A0687069B063 /* PlaybackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaybackService.swift; sourceTree = "<group>"; };
+		24E874AFD9223B296FF07970 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		BC70345CB635A70B861155BA /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		D4F168580712F347ED76A599 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		A3FB7AD9877840471011BE67 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		BE008C7EF062F693D5CACF73 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		E59A5D5ED1BBFD1E154DEFAE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		CC21DDA4253BC5F9684B7E86 /* plugin-catalog-seed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = plugin-catalog-seed.json; sourceTree = "<group>"; };
+		8605E3894E7E9AA4D7635361 /* plugin.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = plugin.js; sourceTree = "<group>"; };
+		7A6A4A445A997F474DB2BEB7 /* kino-plugin.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = kino-plugin.json; sourceTree = "<group>"; };
+		CAD677EA723F9EE1B9A1F927 /* README-PROVENANCE.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = README-PROVENANCE.md; sourceTree = "<group>"; };
+		C766093AF47A49727CFA708F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B0CDDC9247BE08CEBD301157 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		67C65B34DE559BBEE45714CF /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		F1EADDCC649EF1787B3C699C /* KinoiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KinoiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		424153ED3CD079DB4DB459AF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DA42EECB7E29CBAAE34A2FA /* AVKit.framework in Frameworks */,
+				DD0AF99DA468016448B07508 /* JavaScriptCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		518DA81DB9B99529C0C0AEBE = {
+			isa = PBXGroup;
+			children = (
+				9478AE74C8BCB9D910A03B40,
+				2F3A6B1E78F896718625FF06,
+				B687106895D06AA330DAFED5,
+			);
+			sourceTree = "<group>";
+		};
+		9478AE74C8BCB9D910A03B40 = {
+			isa = PBXGroup;
+			children = (
+				5AE562B1925454BC18AD7F22,
+				A1C86A29E589D48EC70B6A32,
+				609874F33224C0C09F1FEE42,
+				38DF21AEF4612506D6BE5CBE,
+				887A6F90336FF23D95C3914B,
+				C766093AF47A49727CFA708F,
+			);
+			name = KinoiOS;
+			path = KinoiOS;
+			sourceTree = "<group>";
+		};
+		A1C86A29E589D48EC70B6A32 = {
+			isa = PBXGroup;
+			children = (
+				E41DB2F7FDCAE3871989C290,
+				41845A6686682E80A00A3A8C,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		609874F33224C0C09F1FEE42 = {
+			isa = PBXGroup;
+			children = (
+				197F09AFEF273FA93266B76F,
+				1D67DFE5A6D335393EFF0023,
+				DDC4E06B1205A0687069B063,
+			);
+			name = Services;
+			sourceTree = "<group>";
+		};
+		38DF21AEF4612506D6BE5CBE = {
+			isa = PBXGroup;
+			children = (
+				24E874AFD9223B296FF07970,
+				BC70345CB635A70B861155BA,
+				D4F168580712F347ED76A599,
+				A3FB7AD9877840471011BE67,
+				BE008C7EF062F693D5CACF73,
+				E59A5D5ED1BBFD1E154DEFAE,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		887A6F90336FF23D95C3914B = {
+			isa = PBXGroup;
+			children = (
+				CC21DDA4253BC5F9684B7E86,
+				8605E3894E7E9AA4D7635361,
+				7A6A4A445A997F474DB2BEB7,
+				CAD677EA723F9EE1B9A1F927,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		2F3A6B1E78F896718625FF06 = {
+			isa = PBXGroup;
+			children = (
+				F1EADDCC649EF1787B3C699C,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B687106895D06AA330DAFED5 = {
+			isa = PBXGroup;
+			children = (
+				B0CDDC9247BE08CEBD301157,
+				67C65B34DE559BBEE45714CF,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D5415C0E756D88E47884E28A /* KinoiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F2F62AAE534BA46EC59716F3 /* Build configuration list for PBXNativeTarget "KinoiOS" */;
+			buildPhases = (
+				7A70D71C385290AF96BF1031 /* Sources */,
+				424153ED3CD079DB4DB459AF /* Frameworks */,
+				285BB1C1430063331E9F5DD0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KinoiOS;
+			productName = KinoiOS;
+			productReference = F1EADDCC649EF1787B3C699C /* KinoiOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9364A5F65BEC49955EA355BE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					D5415C0E756D88E47884E28A = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = 7EF2517A8FE63F4681EC5EEA /* Build configuration list for PBXProject "KinoiOS" */;
+			compatibilityVersion = "Xcode 15.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 518DA81DB9B99529C0C0AEBE;
+			productRefGroup = 2F3A6B1E78F896718625FF06 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D5415C0E756D88E47884E28A /* KinoiOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		285BB1C1430063331E9F5DD0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9F401E4322FF0FF743A5F1A0 /* plugin-catalog-seed.json in Resources */,
+				C667227ADAC563A90CF92184 /* plugin.js in Resources */,
+				C71F975C03C67472F19D68AA /* kino-plugin.json in Resources */,
+				D42F00F423AF288BB914D972 /* README-PROVENANCE.md in Resources */,
+				EC4C97D60C61B4B8BA2DF4B3 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7A70D71C385290AF96BF1031 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3A9797AEF5773CD6D293E956 /* KinoiOSApp.swift in Sources */,
+				B89F36C5D65DA7F1E0CF3D51 /* Plugin.swift in Sources */,
+				9C3A62E9C183879A5F51B621 /* TitleItem.swift in Sources */,
+				1CE3D504AB315F6B835CA059 /* PluginCatalogService.swift in Sources */,
+				D6AFF05B92D1130251328B6D /* PluginRuntime.swift in Sources */,
+				8184495C7B8FF369F3FF1169 /* PlaybackService.swift in Sources */,
+				C2D3DAACE6549408EFBB473F /* HomeView.swift in Sources */,
+				0519E92AD7AD3B70CC016030 /* SearchView.swift in Sources */,
+				9F9F2DD5DEA3D803E1F7BDAB /* DetailView.swift in Sources */,
+				76133A0A725A4EA7E4A09EAB /* PlayerView.swift in Sources */,
+				E05ACC492FC491CB3853639A /* LibraryView.swift in Sources */,
+				35B72693CF868B8A650C62C6 /* SettingsView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4A43692AD8BCEEB8B727C85B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFS_STRING = "en";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C28449456A5A705A7479770B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFS_STRING = "en";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				ENABLE_NS_ASSERTIONS = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4D8F6610AF6606489ED8DFBC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sanchezho.KinoiOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMBED_LIBRARIES_WITH_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3DDF142C91E4BE3A6BA5A69E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 0.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sanchezho.KinoiOS;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMBED_LIBRARIES_WITH_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7EF2517A8FE63F4681EC5EEA /* Build configuration list for PBXProject "KinoiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A43692AD8BCEEB8B727C85B /* Debug */,
+				C28449456A5A705A7479770B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F2F62AAE534BA46EC59716F3 /* Build configuration list for PBXNativeTarget "KinoiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D8F6610AF6606489ED8DFBC /* Debug */,
+				3DDF142C91E4BE3A6BA5A69E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = 9364A5F65BEC49955EA355BE /* Project object */;
+}
