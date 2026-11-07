@@ -46,8 +46,13 @@ lt::settings_pack::proxy_type_t proxyTypeConverter(SessionSettings *pack) {
 
     // Must have
     settings.set_int(lt::settings_pack::alert_mask, lt::alert_category_t::all());
-    settings.set_str(lt::settings_pack::user_agent, [_agentName UTF8String]);
-    settings.set_str(lt::settings_pack::peer_fingerprint, [_peerFingerprint UTF8String]);
+    // PATCHES.md entry 5: every string is nil-coalesced to "". settingsPack
+    // used to pass [_x UTF8String] straight to set_str(), which strlen()s
+    // the C string — a nil property (listenInterfaces/outgoingInterfaces
+    // were nil by default) segfaulted in the Session constructor
+    // (EXC_BAD_ACCESS, 2026-11-07 on-device crash, two identical .ips).
+    settings.set_str(lt::settings_pack::user_agent, [_agentName UTF8String] ?: "");
+    settings.set_str(lt::settings_pack::peer_fingerprint, [_peerFingerprint UTF8String] ?: "");
 
     // Torrent limitations
     settings.set_int(lt::settings_pack::active_limit, (int)_maxActiveTorrents);
@@ -90,17 +95,17 @@ lt::settings_pack::proxy_type_t proxyTypeConverter(SessionSettings *pack) {
     settings.set_int(lt::settings_pack::max_retry_port_bind, (int)_portBindRetries);
 
     // Interfaces
-    settings.set_str(lt::settings_pack::outgoing_interfaces, [_outgoingInterfaces UTF8String]);
-    settings.set_str(lt::settings_pack::listen_interfaces, [_listenInterfaces UTF8String]);
+    settings.set_str(lt::settings_pack::outgoing_interfaces, [_outgoingInterfaces UTF8String] ?: "");
+    settings.set_str(lt::settings_pack::listen_interfaces, [_listenInterfaces UTF8String] ?: "");
 
     // Proxy
     settings.set_int(lt::settings_pack::proxy_type, proxyTypeConverter(self));
     if (_proxyType != SessionSettingsProxyTypeNone) {
         settings.set_int(lt::settings_pack::proxy_port, (int)_proxyHostPort);
-        settings.set_str(lt::settings_pack::proxy_hostname, [_proxyHostname UTF8String]);
+        settings.set_str(lt::settings_pack::proxy_hostname, [_proxyHostname UTF8String] ?: "");
         if (_proxyAuthRequired) {
-            settings.set_str(lt::settings_pack::proxy_username, [_proxyUsername UTF8String]);
-            settings.set_str(lt::settings_pack::proxy_password, [_proxyPassword UTF8String]);
+            settings.set_str(lt::settings_pack::proxy_username, [_proxyUsername UTF8String] ?: "");
+            settings.set_str(lt::settings_pack::proxy_password, [_proxyPassword UTF8String] ?: "");
         }
         settings.set_bool(lt::settings_pack::proxy_peer_connections, _proxyPeerConnections);
         settings.set_bool(lt::settings_pack::proxy_tracker_connections, true);

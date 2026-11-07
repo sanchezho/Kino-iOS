@@ -89,6 +89,15 @@ final class TorrentEngine: NSObject, ObservableObject, SessionDelegate {
         settings.encryptionPolicy = .enabled
         settings.validateHttpsTrackers = false
         settings.port = 6881
+        // REQUIRED (crash 2026-11-07): SessionSettings.settingsPack passes
+        // these straight to libtorrent's set_str(), which strlen()s the C
+        // string — a nil one segfaults (EXC_BAD_ACCESS) inside the Session
+        // constructor, before any torrent work. listenInterfaces is also
+        // the only place the listen port is honoured (settingsPack ignores
+        // `port`); outgoingInterfaces "" means "any interface", libtorrent's
+        // default.
+        settings.listenInterfaces = "0.0.0.0:6881,[::]:6881"
+        settings.outgoingInterfaces = ""
 
         let created = Session(
             downloadPath,

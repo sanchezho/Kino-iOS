@@ -76,5 +76,25 @@ were applied to the vendored copies (upstream files untouched):
    different inline namespaces (`v2`/`v2_1`) on each side and failed to
    link. Verified against the headers at the pinned libtorrent SHA.)
 
+5. 2026-11-07 (on-device crash, two identical .ips, app 0.3.0)
+   `LibTorrent/Core/SessionSettings/SessionSettings.mm` (`settingsPack`):
+   all six `set_str(..., [_x UTF8String])` calls now nil-coalesce to `""`
+   (`[_x UTF8String] ?: ""`). Reason: `SessionSettings.init` only sets
+   `peerFingerprint` and `preallocateStorage`; `agentName`,
+   `outgoingInterfaces` and `listenInterfaces` are nil unless the client
+   sets them, and `lt::settings_pack::set_str(const char*)` strlen()s its
+   argument — a NULL string segfaulted (`EXC_BAD_ACCESS`, SIGSEGV,
+   `KERN_INVALID_ADDRESS at 0x0`, faulting frame `_platform_strlen` ←
+   `-[SessionSettings settingsPack]` ← `-[Session initWith:...]` ←
+   `TorrentEngine.ensureSession()` ← `addStream` ← the first "Ver" tap on
+   a torrent row). The crash was 100% deterministic on first use: no
+   session was ever created on device. Companion app-side fix, same
+   change: `KinoiOS/Services/TorrentEngine.swift` `ensureSession()` now
+   sets `listenInterfaces = "0.0.0.0:6881,[::]:6881"` and
+   `outgoingInterfaces = ""` (libtorrent's defaults). Note
+   `settingsPack` ignores the `port` property entirely — the listen port
+   only comes from `listenInterfaces`, so the earlier `port = 6881` was a
+   no-op.
+
 No other changes. If the wrapper is ever re-vendored from a newer commit,
-re-apply these three patches and update the commit SHA above.
+re-apply these patches and update the commit SHA above.
