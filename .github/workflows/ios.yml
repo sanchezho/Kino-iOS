@@ -1,0 +1,68 @@
+# Kino iOS — unsigned IPA build (PRIMARY build route).
+#
+# The owner explicitly chose GitHub Actions as the build route; a local
+# Mac/Xcode compile is only a fallback. Every push to main and every
+# manual run produces an unsigned .ipa artifact for Signulous re-signing.
+#
+# Runner: macos-15 (GitHub-hosted). Xcode: 16 when
+# /Applications/Xcode_16.app exists on the runner, otherwise the runner
+# default. That path is checked, not assumed to exist.
+name: iOS
+
+"on":
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Show Xcode version
+        run: |
+          xcodebuild -version
+          if [ -d /Applications/Xcode_16.app ]; then
+            sudo xcode-select -s /Applications/Xcode_16.app
+            echo "Selected Xcode 16"
+            xcodebuild -version
+          else
+            echo "Xcode_16.app not found; using the runner default Xcode"
+            ls /Applications | grep -i xcode || true
+          fi
+
+      - name: Archive (unsigned)
+        run: |
+          xcodebuild archive \
+            -project KinoiOS.xcodeproj \
+            -scheme KinoiOS \
+            -configuration Release \
+            -destination 'generic/platform=iOS' \
+            -archivePath build/KinoiOS.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGN_IDENTITY="" \
+            DEVELOPMENT_TEAM=""
+
+      - name: Package unsigned IPA
+        run: |
+          APP_PATH="build/KinoiOS.xcarchive/Products/Applications/KinoiOS.app"
+          if [ ! -d "$APP_PATH" ]; then
+            echo "KinoiOS.app not found after archive"
+            ls -R build || true
+            exit 1
+          fi
+          rm -rf Payload KinoiOS-unsigned.ipa
+          mkdir -p Payload
+          cp -R "$APP_PATH" Payload/
+          /usr/bin/zip -r KinoiOS-unsigned.ipa Payload
+          ls -lh KinoiOS-unsigned.ipa
+          /usr/bin/unzip -l KinoiOS-unsigned.ipa
+
+      - name: Upload unsigned IPA
+        uses: actions/upload-artifact@v4
+        with:
+          name: KinoiOS-unsigned-ipa
+          path: KinoiOS-unsigned.ipa
+          if-no-files-found: error
