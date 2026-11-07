@@ -643,7 +643,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Thirdparty/LibTorrent-Swift/libtorrent-build/$(CONFIGURATION)-iphoneos",
+					"$(PROJECT_DIR)/Thirdparty/LibTorrent-Swift/libtorrent-build/$(CONFIGURATION)",
 				);
 				SWIFT_OBJC_BRIDGING_HEADER = KinoiOS/KinoiOS-Bridging-Header.h;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -684,7 +684,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Thirdparty/LibTorrent-Swift/libtorrent-build/$(CONFIGURATION)-iphoneos",
+					"$(PROJECT_DIR)/Thirdparty/LibTorrent-Swift/libtorrent-build/$(CONFIGURATION)",
 				);
 				SWIFT_OBJC_BRIDGING_HEADER = KinoiOS/KinoiOS-Bridging-Header.h;
 				TARGETED_DEVICE_FAMILY = "1,2";
