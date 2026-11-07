@@ -53,6 +53,17 @@ were applied to the vendored copies (upstream files untouched):
    already sets `validateHttpsTrackers = false`). If HTTPS trackers or MSE
    are ever needed, the alternative is vendoring an OpenSSL build for iOS
    and linking it — a separate project, not a flag.
+   Update 2026-11-07 (CI run #24): with OpenSSL disabled, CMake's fallback
+   chain found LibGcrypt on the runner, so the library's hasher used the
+   gcrypt backend (`_gcry_md_*` undefined at link time, since the app
+   doesn't link libgcrypt). Added
+   `-DCMAKE_DISABLE_FIND_PACKAGE_LibGcrypt=TRUE` as well, so libtorrent
+   falls back to its built-in SHA1/SHA256 hasher (no external library).
+   Companion app-side fix, same run: linked
+   `SystemConfiguration.framework` in the app target (the 3 remaining
+   undefined symbols were `_SCNetworkReachability*`, used by libtorrent's
+   network-change monitoring; upstream's own `LibTorrent.xcodeproj` links
+   this framework too).
    (Companion app-side fix, same run: `TORRENT_ABI_VERSION=4` +
    `TORRENT_HAVE_MMAP=0` added to the app target's
    `GCC_PREPROCESSOR_DEFINITIONS` — see the pbxproj. Upstream's own

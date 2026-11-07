@@ -32,6 +32,7 @@
 		EC4C97D60C61B4B8BA2DF4B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C766093AF47A49727CFA708F /* Assets.xcassets */; };
 		9DA42EECB7E29CBAAE34A2FA /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0CDDC9247BE08CEBD301157 /* AVKit.framework */; };
 		DD0AF99DA468016448B07508 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C65B34DE559BBEE45714CF /* JavaScriptCore.framework */; };
+		0ADE0EAB207A4C7D9A18C49F /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13FEC3D9D4FA46F19F1B6577 /* SystemConfiguration.framework */; };
 		751E037DFF5A964FAC3E09FF /* SwiftFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE35CBFDA50227BACC4E7FE /* SwiftFile.swift */; };
 		95ACFBE1A872C5F7B04DEDFF /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED49D8EB7A65E776D7C32B91 /* Test.cpp */; };
 		0E1878F881E7EBE7E290835E /* FileEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D5446BF2FA05CACAF8100585 /* FileEntry.m */; };
@@ -83,6 +84,7 @@
 		C766093AF47A49727CFA708F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B0CDDC9247BE08CEBD301157 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		67C65B34DE559BBEE45714CF /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		13FEC3D9D4FA46F19F1B6577 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F1EADDCC649EF1787B3C699C /* KinoiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KinoiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC2CCDFFF62384EAB800DFC7 /* make.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = make.sh; sourceTree = "<group>"; };
 		6195921185719520A765053E /* PATCHES.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = PATCHES.md; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				DD0AF99DA468016448B07508 /* JavaScriptCore.framework in Frameworks */,
 				E1158233D731FED78AF76183 /* libtorrent-rasterbar.a in Frameworks */,
 				B18453F260811899E667B9E1 /* libiconv.tbd in Frameworks */,
+				0ADE0EAB207A4C7D9A18C49F /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,6 +247,7 @@
 			children = (
 				B0CDDC9247BE08CEBD301157,
 				67C65B34DE559BBEE45714CF,
+				13FEC3D9D4FA46F19F1B6577,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

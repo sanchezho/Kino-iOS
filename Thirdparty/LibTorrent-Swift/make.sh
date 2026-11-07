@@ -17,6 +17,7 @@ cmake ./Thirdparty/libtorrent \
     -Dencryption=OFF \
     -DCMAKE_DISABLE_FIND_PACKAGE_OpenSSL=TRUE \
     -DCMAKE_DISABLE_FIND_PACKAGE_GnuTLS=TRUE \
+    -DCMAKE_DISABLE_FIND_PACKAGE_LibGcrypt=TRUE \
     -Dwebtorrent=OFF \
     -DBUILD_SHARED_LIBS=OFF \
     -DCMAKE_XCODE_ATTRIBUTE_ARCHS="\$(ARCHS_STANDARD)" \
