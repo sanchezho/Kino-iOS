@@ -151,7 +151,7 @@ final class ArchiveService: ObservableObject {
         let meta = try await metadata(identifier)
         let originals = Self.videoOriginals(meta.files)
         let numbers = Self.numbering(originals)
-        let title = firstString(meta.metadata["title"]) ?? identifier
+        let title = Self.firstString(meta.metadata["title"]) ?? identifier
         let episodes = originals.enumerated().map { index, file in
             ArchiveEpisode(
                 id: "\(identifier)|\(file.name)",
@@ -277,7 +277,7 @@ final class ArchiveService: ObservableObject {
     }
 
     private static func downloadURL(identifier: String, name: String) -> URL {
-        let encodedName = name.split(separator: "/").map { encodeURIComponent(String($0)) ?? $0 }.joined(separator: "/")
+        let encodedName = name.split(separator: "/").map { encodeURIComponent(String($0)) ?? String($0) }.joined(separator: "/")
         return URL(string: base + "/download/" + (encodeURIComponent(identifier) ?? identifier) + "/" + encodedName)!
     }
 
