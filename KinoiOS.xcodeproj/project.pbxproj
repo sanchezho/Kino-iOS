@@ -19,6 +19,11 @@
 		76133A0A725A4EA7E4A09EAB /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FB7AD9877840471011BE67 /* PlayerView.swift */; };
 		E05ACC492FC491CB3853639A /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE008C7EF062F693D5CACF73 /* LibraryView.swift */; };
 		35B72693CF868B8A650C62C6 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59A5D5ED1BBFD1E154DEFAE /* SettingsView.swift */; };
+		3E981AB29A274377885CF1C2 /* ArchiveItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D31E8A1C40241DA9CDCD338 /* ArchiveItem.swift */; };
+		00F60892DBD34872A56D458E /* ArchiveService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E42707E1844DDBB3E11865 /* ArchiveService.swift */; };
+		1A0A26B1EA3B45A4B16B534D /* CinemetaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C093FDA845B4FD8BFCB4C57 /* CinemetaService.swift */; };
+		3E0EA58654004A8591D8D085 /* BrowseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E474F6C36564CF194B3B612 /* BrowseView.swift */; };
+		D164DC0234404AF894364F50 /* ArchiveDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60BBBA26F9E04EA2918BD3F3 /* ArchiveDetailView.swift */; };
 		9F401E4322FF0FF743A5F1A0 /* plugin-catalog-seed.json in Resources */ = {isa = PBXBuildFile; fileRef = CC21DDA4253BC5F9684B7E86 /* plugin-catalog-seed.json */; };
 		C667227ADAC563A90CF92184 /* plugin.js in Resources */ = {isa = PBXBuildFile; fileRef = 8605E3894E7E9AA4D7635361 /* plugin.js */; };
 		C71F975C03C67472F19D68AA /* kino-plugin.json in Resources */ = {isa = PBXBuildFile; fileRef = 7A6A4A445A997F474DB2BEB7 /* kino-plugin.json */; };
@@ -41,6 +46,11 @@
 		A3FB7AD9877840471011BE67 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		BE008C7EF062F693D5CACF73 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
 		E59A5D5ED1BBFD1E154DEFAE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		4D31E8A1C40241DA9CDCD338 /* ArchiveItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveItem.swift; sourceTree = "<group>"; };
+		47E42707E1844DDBB3E11865 /* ArchiveService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveService.swift; sourceTree = "<group>"; };
+		4C093FDA845B4FD8BFCB4C57 /* CinemetaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemetaService.swift; sourceTree = "<group>"; };
+		7E474F6C36564CF194B3B612 /* BrowseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowseView.swift; sourceTree = "<group>"; };
+		60BBBA26F9E04EA2918BD3F3 /* ArchiveDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveDetailView.swift; sourceTree = "<group>"; };
 		CC21DDA4253BC5F9684B7E86 /* plugin-catalog-seed.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = plugin-catalog-seed.json; sourceTree = "<group>"; };
 		8605E3894E7E9AA4D7635361 /* plugin.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = plugin.js; sourceTree = "<group>"; };
 		7A6A4A445A997F474DB2BEB7 /* kino-plugin.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = kino-plugin.json; sourceTree = "<group>"; };
@@ -92,6 +102,7 @@
 			children = (
 				E41DB2F7FDCAE3871989C290,
 				41845A6686682E80A00A3A8C,
+				4D31E8A1C40241DA9CDCD338,
 			);
 			name = Models;
 			path = Models;
@@ -103,6 +114,8 @@
 				197F09AFEF273FA93266B76F,
 				1D67DFE5A6D335393EFF0023,
 				DDC4E06B1205A0687069B063,
+				47E42707E1844DDBB3E11865,
+				4C093FDA845B4FD8BFCB4C57,
 			);
 			name = Services;
 			path = Services;
@@ -117,6 +130,8 @@
 				A3FB7AD9877840471011BE67,
 				BE008C7EF062F693D5CACF73,
 				E59A5D5ED1BBFD1E154DEFAE,
+				7E474F6C36564CF194B3B612,
+				60BBBA26F9E04EA2918BD3F3,
 			);
 			name = Views;
 			path = Views;
@@ -227,15 +242,20 @@
 				3A9797AEF5773CD6D293E956 /* KinoiOSApp.swift in Sources */,
 				B89F36C5D65DA7F1E0CF3D51 /* Plugin.swift in Sources */,
 				9C3A62E9C183879A5F51B621 /* TitleItem.swift in Sources */,
+				3E981AB29A274377885CF1C2 /* ArchiveItem.swift in Sources */,
 				1CE3D504AB315F6B835CA059 /* PluginCatalogService.swift in Sources */,
 				D6AFF05B92D1130251328B6D /* PluginRuntime.swift in Sources */,
 				8184495C7B8FF369F3FF1169 /* PlaybackService.swift in Sources */,
+				00F60892DBD34872A56D458E /* ArchiveService.swift in Sources */,
+				1A0A26B1EA3B45A4B16B534D /* CinemetaService.swift in Sources */,
 				C2D3DAACE6549408EFBB473F /* HomeView.swift in Sources */,
 				0519E92AD7AD3B70CC016030 /* SearchView.swift in Sources */,
 				9F9F2DD5DEA3D803E1F7BDAB /* DetailView.swift in Sources */,
 				76133A0A725A4EA7E4A09EAB /* PlayerView.swift in Sources */,
 				E05ACC492FC491CB3853639A /* LibraryView.swift in Sources */,
 				35B72693CF868B8A650C62C6 /* SettingsView.swift in Sources */,
+				3E0EA58654004A8591D8D085 /* BrowseView.swift in Sources */,
+				D164DC0234404AF894364F50 /* ArchiveDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,7 +340,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanchezho.KinoiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMBED_LIBRARIES_WITH_INSTALL = YES;
@@ -344,7 +364,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.1.0;
+				MARKETING_VERSION = 0.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanchezho.KinoiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMBED_LIBRARIES_WITH_INSTALL = YES;

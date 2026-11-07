@@ -17,10 +17,16 @@ struct PlayerView: View {
                     .onDisappear {
                         playback.pause()
                     }
+                if let error = playback.playerError {
+                    Label(error, systemImage: "exclamationmark.triangle")
+                        .font(.callout)
+                        .foregroundStyle(.orange)
+                        .padding()
+                }
                 if let title = playback.currentTitle {
                     VStack(alignment: .leading, spacing: 4) {
                         Text(title.title).bold()
-                        Text("AVPlayer · HLS · Fase 1")
+                        Text("AVPlayer")
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }

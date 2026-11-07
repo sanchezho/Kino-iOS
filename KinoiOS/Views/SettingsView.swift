@@ -9,10 +9,10 @@ struct SettingsView: View {
             List {
                 Section("Acerca de") {
                     LabeledContent("App", value: "Kino iOS")
-                    LabeledContent("Versión", value: "0.1.0 (Fase 1)")
+                    LabeledContent("Versión", value: "0.2.0 (Fase 2)")
                     LabeledContent("Bundle ID", value: "com.sanchezho.KinoiOS")
                     LabeledContent("iOS mínimo", value: "17.0")
-                    Text("Reescritura limpia para iOS de Kino TV. No es una conversión del APK de Android: la interfaz, la reproducción y el runtime de plugins están reescritos en Swift.")
+                    Text("Reescritura limpia para iOS de Kino TV. No es una conversión del APK de Android: la interfaz, la reproducción y el runtime de plugins están reescritos en Swift. Fase 2: catálogos reales de Internet Archive y Cinemeta, con pósters y reproducción.")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Link("kinotvapp.github.io", destination: URL(string: "https://kinotvapp.github.io/en/")!)
@@ -57,7 +57,7 @@ struct SettingsView: View {
                     }
                 }
                 Section("Procedencia") {
-                    Text("El catálogo y el plugin incluidos vienen del APK de Kino TV 0.9.83 (Apache-2.0). Detalle en KinoiOS/Resources/README-PROVENANCE.md. Esta app no aloja contenido ni reproduce fuentes de terceros en Fase 1.")
+                    Text("El catálogo y el plugin incluidos vienen del APK de Kino TV 0.9.83 (Apache-2.0). Detalle en KinoiOS/Resources/README-PROVENANCE.md. En Fase 2 la app descarga catálogos de archive.org y Cinemeta y reproduce video de archive.org; no aloja contenido.")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }

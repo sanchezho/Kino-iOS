@@ -15,8 +15,9 @@ enum TitleKind: String, Codable, CaseIterable {
 }
 
 /// A watchable title. In Phase 1 the only titles with a real stream are the
-/// clearly labelled Apple sample HLS test streams below. Every other title
-/// is catalog-only (`streamURL == nil`) until a plugin implements playback.
+/// clearly labelled Apple sample HLS test streams below. Phase 2 titles
+/// come from Internet Archive (`ArchiveItem.asTitleItem`) once their
+/// stream URL has been resolved.
 struct TitleItem: Identifiable, Hashable, Codable {
     var id: String
     var title: String
@@ -31,10 +32,13 @@ struct TitleItem: Identifiable, Hashable, Codable {
 }
 
 extension TitleItem {
-    /// Apple sample HLS stream, used only to test AVPlayer in Phase 1.
+    /// Apple sample HLS stream, used only to test AVPlayer.
     /// This is not an Internet Archive file and not a Kino title.
+    /// The HEVC example URL used in Phase 1 is dead (it 302-redirects to
+    /// developer.apple.com/videos/); this classic BipBop URL was verified
+    /// 2026-11-07 to answer 200 with application/x-mpegURL.
     static let sampleHLS = URL(
-        string: "https://devstreaming-cdn.apple.com/videos/streaming/examples/img_bipbop_adv_example_hevc/master.m3u8"
+        string: "https://devstreaming-cdn.apple.com/videos/streaming/examples/bipbop_4x3/gear1/prog_index.m3u8"
     )!
 
     static let sampleTitles: [TitleItem] = [
@@ -47,26 +51,6 @@ extension TitleItem {
             year: nil,
             pluginId: "internet-archive",
             streamURL: sampleHLS
-        ),
-        TitleItem(
-            id: "catalog-internet-archive",
-            title: "Internet Archive — películas de dominio público",
-            kind: .movie,
-            posterURL: nil,
-            synopsis: "Catálogo del plugin internet-archive (kinotvapp/kino-plugin-archive): películas de dominio público y televisión clásica de archive.org. En Fase 1 es solo catálogo: todavía no reproduce.",
-            year: nil,
-            pluginId: "internet-archive",
-            streamURL: nil
-        ),
-        TitleItem(
-            id: "catalog-tmdb",
-            title: "TMDB — catálogo de películas y series",
-            kind: .series,
-            posterURL: nil,
-            synopsis: "Catálogo del plugin tmdb (kinotvapp/kino-plugin-tmdb): información de películas y series de TMDB. En Fase 1 es solo catálogo: todavía no reproduce.",
-            year: nil,
-            pluginId: "tmdb",
-            streamURL: nil
         )
     ]
 }
