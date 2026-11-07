@@ -619,6 +619,8 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"TORRENT_USE_RTC=0",
+					"TORRENT_ABI_VERSION=4",
+					"TORRENT_HAVE_MMAP=0",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -660,6 +662,8 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"TORRENT_USE_RTC=0",
+					"TORRENT_ABI_VERSION=4",
+					"TORRENT_HAVE_MMAP=0",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

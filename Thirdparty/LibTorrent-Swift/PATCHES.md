@@ -39,5 +39,31 @@ were applied to the vendored copies (upstream files untouched):
    (`resolveSequrityScopes`, used by Session.mm) and
    `extension StorageModel: Identifiable` are untouched.
 
+4. 2026-11-07 (CI run #23 link errors: 121 undefined symbols) `make.sh`:
+   added `-Dencryption=OFF -DCMAKE_DISABLE_FIND_PACKAGE_OpenSSL=TRUE
+   -DCMAKE_DISABLE_FIND_PACKAGE_GnuTLS=TRUE` to the cmake configure call.
+   Reason: the CI runner's CMake auto-detected OpenSSL, so the built
+   `libtorrent-rasterbar.a` referenced ~90 OpenSSL C symbols (`_SSL_*`,
+   `_BIO_*`, `_BN_*`, `_ASN1_*`, ...) that the iOS app cannot link — iOS
+   ships no OpenSSL library to link against. With these flags libtorrent
+   builds with its built-in RC4/SHA1, no SSL support and no MSE/DH peer
+   encryption (`TORRENT_DISABLE_ENCRYPTION`, `pe_crypto.cpp` excluded).
+   Functional consequence: HTTPS trackers and MSE-only peers won't work;
+   plain HTTP/UDP trackers, DHT and normal peers are unaffected (the app
+   already sets `validateHttpsTrackers = false`). If HTTPS trackers or MSE
+   are ever needed, the alternative is vendoring an OpenSSL build for iOS
+   and linking it — a separate project, not a flag.
+   (Companion app-side fix, same run: `TORRENT_ABI_VERSION=4` +
+   `TORRENT_HAVE_MMAP=0` added to the app target's
+   `GCC_PREPROCESSOR_DEFINITIONS` — see the pbxproj. Upstream's own
+   `LibTorrent.xcodeproj` defines exactly those. Without the ABI define the
+   app compiled the headers at the default ABI 2 while the library was
+   built at ABI 100 by `make.sh`'s `-Ddeprecated-functions=OFF`, so the
+   2.0/2.1 APIs — `add_torrent_params`, `session_params`,
+   `torrent_status`, `torrent_info::layout()`, `file_storage`,
+   `parse_magnet_uri`, `write_resume_data`, ... — were mangled under
+   different inline namespaces (`v2`/`v2_1`) on each side and failed to
+   link. Verified against the headers at the pinned libtorrent SHA.)
+
 No other changes. If the wrapper is ever re-vendored from a newer commit,
 re-apply these three patches and update the commit SHA above.

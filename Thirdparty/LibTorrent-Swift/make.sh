@@ -14,6 +14,9 @@ cmake ./Thirdparty/libtorrent \
     -DCMAKE_OSX_DEPLOYMENT_TARGET=12.0 \
     -DCMAKE_CXX_FLAGS="-DTORRENT_HAVE_MMAP=0 -DNDEBUG" \
     -Ddeprecated-functions=OFF \
+    -Dencryption=OFF \
+    -DCMAKE_DISABLE_FIND_PACKAGE_OpenSSL=TRUE \
+    -DCMAKE_DISABLE_FIND_PACKAGE_GnuTLS=TRUE \
     -Dwebtorrent=OFF \
     -DBUILD_SHARED_LIBS=OFF \
     -DCMAKE_XCODE_ATTRIBUTE_ARCHS="\$(ARCHS_STANDARD)" \
