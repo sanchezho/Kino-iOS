@@ -210,6 +210,7 @@ struct CinemetaDetailView: View {
     @EnvironmentObject private var archive: ArchiveService
     @EnvironmentObject private var streams: StremioStreamService
     @EnvironmentObject private var playback: PlaybackService
+    @EnvironmentObject private var torrentEngine: TorrentEngine
     @State private var detail: CinemetaItem?
     @State private var detailError: String?
     @State private var archiveMatches: [ArchiveItem]?
@@ -334,8 +335,9 @@ struct CinemetaDetailView: View {
 
                 // Fuentes del add-on de streams (Stremio/Torrentio):
                 // la lista real de fuentes de este título. Los streams
-                // con URL directa se reproducen; los torrents se listan
-                // pero no se pueden reproducir en iOS (sin motor torrent).
+                // con URL directa se reproducen; los torrents se descargan
+                // con el motor (paso 4-2) y su reproducción llega con el
+                // servidor HTTP local (paso 3).
                 if isLoadingStreams && streamList == nil {
                     ProgressView("Buscando fuentes…")
                         .font(.callout)
@@ -358,14 +360,14 @@ struct CinemetaDetailView: View {
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
                                 }
-                                if stream.isTorrent {
-                                    Text("Torrent — sin motor en iOS")
-                                        .font(.caption)
-                                        .foregroundStyle(.secondary)
+                                if stream.isTorrent && !stream.isDirect {
+                                    torrentStatus(for: stream)
                                 }
                             }
                             Spacer()
-                            if stream.isDirect {
+                            if stream.isTorrent && !stream.isDirect {
+                                torrentAction(for: stream)
+                            } else if stream.isDirect {
                                 Button {
                                     playStream(stream)
                                 } label: {
@@ -435,6 +437,81 @@ struct CinemetaDetailView: View {
         } catch {
             streamsError = error.localizedDescription
         }
+    }
+
+    private func torrentState(for stream: StremioStream) -> TorrentPlayState? {
+        guard let hash = stream.infoHash?.lowercased(), !hash.isEmpty else { return nil }
+        return torrentEngine.states[hash]
+    }
+
+    /// Status text / progress under a torrent row.
+    @ViewBuilder
+    private func torrentStatus(for stream: StremioStream) -> some View {
+        switch torrentState(for: stream) {
+        case .none:
+            Text("Torrent")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        case .some(.fetchingMetadata):
+            HStack(spacing: 6) {
+                ProgressView()
+                Text("Obteniendo metadatos…")
+                    .font(.caption)
+            }
+        case .some(.downloading(let progress, let rate, _, _, _)):
+            VStack(alignment: .leading, spacing: 4) {
+                ProgressView(value: progress)
+                Text("Descargando… \(Int(progress * 100))% · \(Self.formatRate(rate))")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+        case .some(.readyToPlay(let fileName, _, _)):
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Listo para reproducir — \(fileName)")
+                    .font(.caption)
+                Text("La reproducción por HTTP local llega en el paso 3.")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
+        case .some(.unsupportedFormat(_, let format)):
+            Text("Este archivo es \(format): AVPlayer no lo reproduce")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        case .some(.failed(let message)):
+            Text(message)
+                .font(.caption)
+                .foregroundStyle(.orange)
+        case .some(.finished(let fileName)):
+            Text("Descarga completa — \(fileName)")
+                .font(.caption)
+        }
+    }
+
+    /// Trailing button of a torrent row: Ver / Reintentar / nothing.
+    @ViewBuilder
+    private func torrentAction(for stream: StremioStream) -> some View {
+        switch torrentState(for: stream) {
+        case .none:
+            Button("Ver") {
+                torrentEngine.addStream(stream, title: shown.title)
+            }
+            .buttonStyle(.bordered)
+        case .some(.failed):
+            Button("Reintentar") {
+                torrentEngine.addStream(stream, title: shown.title)
+            }
+            .buttonStyle(.bordered)
+        default:
+            EmptyView()
+        }
+    }
+
+    private static func formatRate(_ bytesPerSecond: UInt64) -> String {
+        let value = Double(bytesPerSecond)
+        if value >= 1_000_000 {
+            return String(format: "%.1f MB/s", value / 1_000_000)
+        }
+        return String(format: "%.0f KB/s", value / 1_000)
     }
 
     /// Plays a direct-URL stream through the shared player.

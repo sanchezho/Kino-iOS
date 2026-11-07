@@ -13,7 +13,9 @@ import SwiftUI
 /// episodes) and Cinemeta (the Stremio catalog addon in the seed).
 /// Phase 3 adds Stremio streaming add-ons (default: Torrentio) to the
 /// Cinemeta detail: real stream sources are listed, direct-URL streams
-/// play, torrent streams are listed but not playable on iOS.
+/// play, torrent streams are listed. Phase 4 step 2 adds the torrent
+/// engine (download with progress); playback of torrents waits for the
+/// local HTTP server (step 3).
 @main
 struct KinoiOSApp: App {
     @StateObject private var catalog = PluginCatalogService()
@@ -22,6 +24,7 @@ struct KinoiOSApp: App {
     @StateObject private var archive = ArchiveService()
     @StateObject private var cinemeta = CinemetaService()
     @StateObject private var streams = StremioStreamService()
+    @StateObject private var torrentEngine = TorrentEngine.shared
 
     init() {
         // Phase 4 step 1: touch the torrent engine so the linker keeps the
@@ -48,6 +51,7 @@ struct KinoiOSApp: App {
             .environmentObject(archive)
             .environmentObject(cinemeta)
             .environmentObject(streams)
+            .environmentObject(torrentEngine)
         }
     }
 }
