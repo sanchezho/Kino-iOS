@@ -32,6 +32,29 @@
 		EC4C97D60C61B4B8BA2DF4B3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C766093AF47A49727CFA708F /* Assets.xcassets */; };
 		9DA42EECB7E29CBAAE34A2FA /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0CDDC9247BE08CEBD301157 /* AVKit.framework */; };
 		DD0AF99DA468016448B07508 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 67C65B34DE559BBEE45714CF /* JavaScriptCore.framework */; };
+		751E037DFF5A964FAC3E09FF /* SwiftFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE35CBFDA50227BACC4E7FE /* SwiftFile.swift */; };
+		95ACFBE1A872C5F7B04DEDFF /* Test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ED49D8EB7A65E776D7C32B91 /* Test.cpp */; };
+		0E1878F881E7EBE7E290835E /* FileEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = D5446BF2FA05CACAF8100585 /* FileEntry.m */; };
+		8CBA6D28D1CB84789BF86223 /* Session.mm in Sources */ = {isa = PBXBuildFile; fileRef = BF5243362715E0C594FD8A66 /* Session.mm */; };
+		170C4ADF8D0EDCDC702DA0F8 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2840A56F2C8C3A5A02FA24CD /* Session.swift */; };
+		1C575EA648E89ABF1B744681 /* SessionSettings.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4B91451078E00443EE29D232 /* SessionSettings.mm */; };
+		5F2FBDDBC5E75B6D93074A3C /* SessionSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 619BBBF35E1FA73C912998F7 /* SessionSettings.swift */; };
+		86799D6D34983C0D79B74077 /* TorrentFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 09377174B14E67FEF6E77AAF /* TorrentFile.mm */; };
+		DD8DD443138862D5D74C308B /* TorrentFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB25B88A68B4AF56E16E4B4D /* TorrentFile.swift */; };
+		20450FA02BA1659B2EB91DF0 /* MagnetURI.mm in Sources */ = {isa = PBXBuildFile; fileRef = 06464F1D25439F0D10AD5552 /* MagnetURI.mm */; };
+		A8EFB2721B93765BC59017B1 /* MagnetURI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12FA4A988C6CB1A05C825DB /* MagnetURI.swift */; };
+		2663A9505CE4A441FC163B0E /* TorrentHandle.mm in Sources */ = {isa = PBXBuildFile; fileRef = BA3F4CAAB5D7E379FF83B0BA /* TorrentHandle.mm */; };
+		41E9B79C25C8C89FEB0E2094 /* TorrentHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1532757ED91B18A28C01FA5F /* TorrentHandle.swift */; };
+		ABB339FC7E1556EB12CF5548 /* TorrentHandleSnapshot.mm in Sources */ = {isa = PBXBuildFile; fileRef = BBC6C5A60FB0908D7C553945 /* TorrentHandleSnapshot.mm */; };
+		17529D684A81D7C40C3045C6 /* TorrentTracker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2AAD29EF957962EAF09DF8EE /* TorrentTracker.mm */; };
+		917882B1628C882F1996BEB8 /* Data+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34BFD278C293A44E9F244776 /* Data+Hex.swift */; };
+		D5158DA7FF3DDCD80E4F9194 /* ExceptionCatcher.mm in Sources */ = {isa = PBXBuildFile; fileRef = FF45EE83D4FAAA6826E0C9CB /* ExceptionCatcher.mm */; };
+		AD958C135F4245C5602D4CE5 /* LibTorrentVersion.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7F309EDFE1EA60C4D5DBEAEC /* LibTorrentVersion.mm */; };
+		D081E48292B82E5BB0D3AE6A /* NSData+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 77015E8B65363CE1A6D1DF4D /* NSData+Hex.m */; };
+		16BFD191AE1E33D723E7EE61 /* NSData+Sha1Hash.mm in Sources */ = {isa = PBXBuildFile; fileRef = 83D05D4421F3C05F2DCAC237 /* NSData+Sha1Hash.mm */; };
+		AB96CF64ABE9D102B744AB50 /* TorrentEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA868364DBE923A48A3EB764 /* TorrentEngine.swift */; };
+		E1158233D731FED78AF76183 /* libtorrent-rasterbar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ABBB78B324724072977A0FB1 /* libtorrent-rasterbar.a */; };
+		B18453F260811899E667B9E1 /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C006EDB1484242D950B3FA4 /* libiconv.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +84,57 @@
 		B0CDDC9247BE08CEBD301157 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		67C65B34DE559BBEE45714CF /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F1EADDCC649EF1787B3C699C /* KinoiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = KinoiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC2CCDFFF62384EAB800DFC7 /* make.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = make.sh; sourceTree = "<group>"; };
+		6195921185719520A765053E /* PATCHES.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = PATCHES.md; sourceTree = "<group>"; };
+		2A2A128FD2E10647069CEC25 /* LibTorrent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibTorrent.h; sourceTree = "<group>"; };
+		BBE35CBFDA50227BACC4E7FE /* SwiftFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftFile.swift; sourceTree = "<group>"; };
+		ED49D8EB7A65E776D7C32B91 /* Test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Test.cpp; sourceTree = "<group>"; };
+		D188D95ECF78EBA1A432F7F8 /* Test.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Test.hpp; sourceTree = "<group>"; };
+		0F5EA148BF329ECD8227B337 /* FileEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileEntry.h; sourceTree = "<group>"; };
+		D5446BF2FA05CACAF8100585 /* FileEntry.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FileEntry.m; sourceTree = "<group>"; };
+		AE4BC4B9DCE7CF51D965D820 /* FileEntry_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FileEntry_Internal.h; sourceTree = "<group>"; };
+		7EFA54B739973A3458ECA79D /* FilePriority.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FilePriority.h; sourceTree = "<group>"; };
+		73A66D891FFFA3FE9F7179D7 /* Session.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		BF5243362715E0C594FD8A66 /* Session.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Session.mm; sourceTree = "<group>"; };
+		2840A56F2C8C3A5A02FA24CD /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		3FBE84687F7B663249752837 /* Session_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Session_Internal.h; sourceTree = "<group>"; };
+		8B1777B861E60E9BDAB307FF /* SessionSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SessionSettings.h; sourceTree = "<group>"; };
+		4B91451078E00443EE29D232 /* SessionSettings.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SessionSettings.mm; sourceTree = "<group>"; };
+		619BBBF35E1FA73C912998F7 /* SessionSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSettings.swift; sourceTree = "<group>"; };
+		BAEC21B388FCAD1661D049C7 /* SessionSettings_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SessionSettings_Internal.h; sourceTree = "<group>"; };
+		64317BD0241096A5723616C7 /* Downloadable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Downloadable.h; sourceTree = "<group>"; };
+		837D36647A3A7E45C8C57194 /* TorrentFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TorrentFile.h; sourceTree = "<group>"; };
+		09377174B14E67FEF6E77AAF /* TorrentFile.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TorrentFile.mm; sourceTree = "<group>"; };
+		AB25B88A68B4AF56E16E4B4D /* TorrentFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentFile.swift; sourceTree = "<group>"; };
+		3E8E336C60DA1C3AFC21A06D /* TorrentFile_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TorrentFile_Internal.h; sourceTree = "<group>"; };
+		60A4E97B86EB208E2E121326 /* MagnetURI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MagnetURI.h; sourceTree = "<group>"; };
+		06464F1D25439F0D10AD5552 /* MagnetURI.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MagnetURI.mm; sourceTree = "<group>"; };
+		F12FA4A988C6CB1A05C825DB /* MagnetURI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagnetURI.swift; sourceTree = "<group>"; };
+		07F2C29E2945B989E3DA35AE /* MagnetURI_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MagnetURI_Internal.h; sourceTree = "<group>"; };
+		FFEA8F75199D292F45FC590D /* TorrentHandle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TorrentHandle.h; sourceTree = "<group>"; };
+		BA3F4CAAB5D7E379FF83B0BA /* TorrentHandle.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TorrentHandle.mm; sourceTree = "<group>"; };
+		1532757ED91B18A28C01FA5F /* TorrentHandle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentHandle.swift; sourceTree = "<group>"; };
+		BE0004E3574F2E315C45F853 /* TorrentHandleState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TorrentHandleState.h; sourceTree = "<group>"; };
+		9FFA4544DE5A85F65B611311 /* TorrentHandle_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TorrentHandle_Internal.h; sourceTree = "<group>"; };
+		218430B01C15912CE2A93A6B /* TorrentHandleSnapshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TorrentHandleSnapshot.h; sourceTree = "<group>"; };
+		BBC6C5A60FB0908D7C553945 /* TorrentHandleSnapshot.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TorrentHandleSnapshot.mm; sourceTree = "<group>"; };
+		5C6A7128E605B8BC5171E462 /* TorrentHandleSnapshot_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TorrentHandleSnapshot_Internal.h; sourceTree = "<group>"; };
+		1E9FB3987ABC63880F497FD9 /* TorrentTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TorrentTracker.h; sourceTree = "<group>"; };
+		2AAD29EF957962EAF09DF8EE /* TorrentTracker.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = TorrentTracker.mm; sourceTree = "<group>"; };
+		9E392EFB6FEA95B5A094C765 /* TorrentTracker_Internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TorrentTracker_Internal.h; sourceTree = "<group>"; };
+		34BFD278C293A44E9F244776 /* Data+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data+Hex.swift; sourceTree = "<group>"; };
+		FA1CA730BCC80228E45EEFD1 /* ExceptionCatcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExceptionCatcher.h; sourceTree = "<group>"; };
+		FF45EE83D4FAAA6826E0C9CB /* ExceptionCatcher.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = ExceptionCatcher.mm; sourceTree = "<group>"; };
+		83EAA0F54D5B9B6DDF92EEE4 /* LibTorrentVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibTorrentVersion.h; sourceTree = "<group>"; };
+		7F309EDFE1EA60C4D5DBEAEC /* LibTorrentVersion.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = LibTorrentVersion.mm; sourceTree = "<group>"; };
+		4596E3DDCEF7C3478528F5B8 /* NSData+Hex.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSData+Hex.h; sourceTree = "<group>"; };
+		77015E8B65363CE1A6D1DF4D /* NSData+Hex.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSData+Hex.m; sourceTree = "<group>"; };
+		BF94D1973D5E6D2CF5B126ED /* NSData+Sha1Hash.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSData+Sha1Hash.h; sourceTree = "<group>"; };
+		83D05D4421F3C05F2DCAC237 /* NSData+Sha1Hash.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NSData+Sha1Hash.mm; sourceTree = "<group>"; };
+		0DD10D06B90000D88E3DB543 /* KinoiOS-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KinoiOS-Bridging-Header.h; sourceTree = "<group>"; };
+		FA868364DBE923A48A3EB764 /* TorrentEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TorrentEngine.swift; sourceTree = "<group>"; };
+		ABBB78B324724072977A0FB1 /* libtorrent-rasterbar.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "Thirdparty/LibTorrent-Swift/libtorrent-build/Release-iphoneos/libtorrent-rasterbar.a"; sourceTree = SOURCE_ROOT; };
+		1C006EDB1484242D950B3FA4 /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +144,8 @@
 			files = (
 				9DA42EECB7E29CBAAE34A2FA /* AVKit.framework in Frameworks */,
 				DD0AF99DA468016448B07508 /* JavaScriptCore.framework in Frameworks */,
+				E1158233D731FED78AF76183 /* libtorrent-rasterbar.a in Frameworks */,
+				B18453F260811899E667B9E1 /* libiconv.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +158,7 @@
 				9478AE74C8BCB9D910A03B40,
 				2F3A6B1E78F896718625FF06,
 				B687106895D06AA330DAFED5,
+				828FB16C838FC505961C7CFE,
 			);
 			sourceTree = "<group>";
 		};
@@ -94,6 +171,7 @@
 				38DF21AEF4612506D6BE5CBE,
 				887A6F90336FF23D95C3914B,
 				C766093AF47A49727CFA708F,
+				0DD10D06B90000D88E3DB543,
 			);
 			name = KinoiOS;
 			path = KinoiOS;
@@ -119,6 +197,7 @@
 				47E42707E1844DDBB3E11865,
 				4C093FDA845B4FD8BFCB4C57,
 				9528A8D830081F190E4F3E1A,
+				FA868364DBE923A48A3EB764,
 			);
 			name = Services;
 			path = Services;
@@ -167,6 +246,187 @@
 				67C65B34DE559BBEE45714CF,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		907CBB2BFE58ABB2322D6BE9 /* FileEntry */ = {
+			isa = PBXGroup;
+			children = (
+				0F5EA148BF329ECD8227B337,
+				D5446BF2FA05CACAF8100585,
+				AE4BC4B9DCE7CF51D965D820,
+				7EFA54B739973A3458ECA79D,
+			);
+			name = FileEntry;
+			path = FileEntry;
+			sourceTree = "<group>";
+		};
+		E5E8FAC94D22302E03738CBF /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				73A66D891FFFA3FE9F7179D7,
+				BF5243362715E0C594FD8A66,
+				2840A56F2C8C3A5A02FA24CD,
+				3FBE84687F7B663249752837,
+			);
+			name = Session;
+			path = Session;
+			sourceTree = "<group>";
+		};
+		82424A1E2CD079C104B64453 /* SessionSettings */ = {
+			isa = PBXGroup;
+			children = (
+				8B1777B861E60E9BDAB307FF,
+				4B91451078E00443EE29D232,
+				619BBBF35E1FA73C912998F7,
+				BAEC21B388FCAD1661D049C7,
+			);
+			name = SessionSettings;
+			path = SessionSettings;
+			sourceTree = "<group>";
+		};
+		E2CA67FD262C2D217EDCB6A0 /* TorrentHandle */ = {
+			isa = PBXGroup;
+			children = (
+				FFEA8F75199D292F45FC590D,
+				BA3F4CAAB5D7E379FF83B0BA,
+				1532757ED91B18A28C01FA5F,
+				BE0004E3574F2E315C45F853,
+				9FFA4544DE5A85F65B611311,
+			);
+			name = TorrentHandle;
+			path = TorrentHandle;
+			sourceTree = "<group>";
+		};
+		490E72AC768C2CCD6595DB36 /* TorrentHandleSnapshot */ = {
+			isa = PBXGroup;
+			children = (
+				218430B01C15912CE2A93A6B,
+				BBC6C5A60FB0908D7C553945,
+				5C6A7128E605B8BC5171E462,
+			);
+			name = TorrentHandleSnapshot;
+			path = TorrentHandleSnapshot;
+			sourceTree = "<group>";
+		};
+		0CA2AACA1B48B0842A6B33BF /* TorrentTracker */ = {
+			isa = PBXGroup;
+			children = (
+				1E9FB3987ABC63880F497FD9,
+				2AAD29EF957962EAF09DF8EE,
+				9E392EFB6FEA95B5A094C765,
+			);
+			name = TorrentTracker;
+			path = TorrentTracker;
+			sourceTree = "<group>";
+		};
+		B47E368EB0F32F966C7993D4 /* Downloadable */ = {
+			isa = PBXGroup;
+			children = (
+				64317BD0241096A5723616C7,
+			);
+			name = Downloadable;
+			path = Downloadable;
+			sourceTree = "<group>";
+		};
+		5CA54467A062848BDD3990A4 /* File */ = {
+			isa = PBXGroup;
+			children = (
+				837D36647A3A7E45C8C57194,
+				09377174B14E67FEF6E77AAF,
+				AB25B88A68B4AF56E16E4B4D,
+				3E8E336C60DA1C3AFC21A06D,
+			);
+			name = File;
+			path = File;
+			sourceTree = "<group>";
+		};
+		827FD5256AA5A139CAFF9C4D /* Magnet */ = {
+			isa = PBXGroup;
+			children = (
+				60A4E97B86EB208E2E121326,
+				06464F1D25439F0D10AD5552,
+				F12FA4A988C6CB1A05C825DB,
+				07F2C29E2945B989E3DA35AE,
+			);
+			name = Magnet;
+			path = Magnet;
+			sourceTree = "<group>";
+		};
+		28658F935C56861DC63428AF /* TorrentFile */ = {
+			isa = PBXGroup;
+			children = (
+				B47E368EB0F32F966C7993D4,
+				5CA54467A062848BDD3990A4,
+				827FD5256AA5A139CAFF9C4D,
+			);
+			name = TorrentFile;
+			path = TorrentFile;
+			sourceTree = "<group>";
+		};
+		A25A39BE9CE1B35692C2B253 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				907CBB2BFE58ABB2322D6BE9,
+				E5E8FAC94D22302E03738CBF,
+				82424A1E2CD079C104B64453,
+				E2CA67FD262C2D217EDCB6A0,
+				490E72AC768C2CCD6595DB36,
+				0CA2AACA1B48B0842A6B33BF,
+				28658F935C56861DC63428AF,
+			);
+			name = Core;
+			path = Core;
+			sourceTree = "<group>";
+		};
+		BA7D1F02C5F19F33AE246B6A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				34BFD278C293A44E9F244776,
+				FA1CA730BCC80228E45EEFD1,
+				FF45EE83D4FAAA6826E0C9CB,
+				83EAA0F54D5B9B6DDF92EEE4,
+				7F309EDFE1EA60C4D5DBEAEC,
+				4596E3DDCEF7C3478528F5B8,
+				77015E8B65363CE1A6D1DF4D,
+				BF94D1973D5E6D2CF5B126ED,
+				83D05D4421F3C05F2DCAC237,
+			);
+			name = Utils;
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		F88C164EDDE95F97E71A0467 /* LibTorrent */ = {
+			isa = PBXGroup;
+			children = (
+				2A2A128FD2E10647069CEC25,
+				BBE35CBFDA50227BACC4E7FE,
+				ED49D8EB7A65E776D7C32B91,
+				D188D95ECF78EBA1A432F7F8,
+				A25A39BE9CE1B35692C2B253,
+				BA7D1F02C5F19F33AE246B6A,
+			);
+			name = LibTorrent;
+			path = LibTorrent;
+			sourceTree = "<group>";
+		};
+		3578284BA75442F98C010B7E /* LibTorrent-Swift */ = {
+			isa = PBXGroup;
+			children = (
+				CC2CCDFFF62384EAB800DFC7,
+				6195921185719520A765053E,
+				F88C164EDDE95F97E71A0467,
+			);
+			name = LibTorrent-Swift;
+			path = LibTorrent-Swift;
+			sourceTree = "<group>";
+		};
+		828FB16C838FC505961C7CFE /* Thirdparty */ = {
+			isa = PBXGroup;
+			children = (
+				3578284BA75442F98C010B7E,
+			);
+			name = Thirdparty;
+			path = Thirdparty;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,6 +520,27 @@
 				35B72693CF868B8A650C62C6 /* SettingsView.swift in Sources */,
 				3E0EA58654004A8591D8D085 /* BrowseView.swift in Sources */,
 				D164DC0234404AF894364F50 /* ArchiveDetailView.swift in Sources */,
+				751E037DFF5A964FAC3E09FF /* SwiftFile.swift in Sources */,
+				95ACFBE1A872C5F7B04DEDFF /* Test.cpp in Sources */,
+				0E1878F881E7EBE7E290835E /* FileEntry.m in Sources */,
+				8CBA6D28D1CB84789BF86223 /* Session.mm in Sources */,
+				170C4ADF8D0EDCDC702DA0F8 /* Session.swift in Sources */,
+				1C575EA648E89ABF1B744681 /* SessionSettings.mm in Sources */,
+				5F2FBDDBC5E75B6D93074A3C /* SessionSettings.swift in Sources */,
+				86799D6D34983C0D79B74077 /* TorrentFile.mm in Sources */,
+				DD8DD443138862D5D74C308B /* TorrentFile.swift in Sources */,
+				20450FA02BA1659B2EB91DF0 /* MagnetURI.mm in Sources */,
+				A8EFB2721B93765BC59017B1 /* MagnetURI.swift in Sources */,
+				2663A9505CE4A441FC163B0E /* TorrentHandle.mm in Sources */,
+				41E9B79C25C8C89FEB0E2094 /* TorrentHandle.swift in Sources */,
+				ABB339FC7E1556EB12CF5548 /* TorrentHandleSnapshot.mm in Sources */,
+				17529D684A81D7C40C3045C6 /* TorrentTracker.mm in Sources */,
+				917882B1628C882F1996BEB8 /* Data+Hex.swift in Sources */,
+				D5158DA7FF3DDCD80E4F9194 /* ExceptionCatcher.mm in Sources */,
+				AD958C135F4245C5602D4CE5 /* LibTorrentVersion.mm in Sources */,
+				D081E48292B82E5BB0D3AE6A /* NSData+Hex.m in Sources */,
+				16BFD191AE1E33D723E7EE61 /* NSData+Sha1Hash.mm in Sources */,
+				AB96CF64ABE9D102B744AB50 /* TorrentEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +631,18 @@
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_EMBED_LIBRARIES_WITH_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Thirdparty/LibTorrent-Swift/**",
+					"$(PROJECT_DIR)/Thirdparty/LibTorrent-Swift/Thirdparty/libtorrent/include",
+					/opt/homebrew/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Thirdparty/LibTorrent-Swift/libtorrent-build/$(CONFIGURATION)-iphoneos",
+				);
+				SWIFT_OBJC_BRIDGING_HEADER = KinoiOS/KinoiOS-Bridging-Header.h;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -375,6 +668,18 @@
 				SUPPORTED_PLATFORMS = iphoneos;
 				SWIFT_EMBED_LIBRARIES_WITH_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Thirdparty/LibTorrent-Swift/**",
+					"$(PROJECT_DIR)/Thirdparty/LibTorrent-Swift/Thirdparty/libtorrent/include",
+					/opt/homebrew/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Thirdparty/LibTorrent-Swift/libtorrent-build/$(CONFIGURATION)-iphoneos",
+				);
+				SWIFT_OBJC_BRIDGING_HEADER = KinoiOS/KinoiOS-Bridging-Header.h;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 			};

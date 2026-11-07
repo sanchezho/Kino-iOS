@@ -23,6 +23,13 @@ struct KinoiOSApp: App {
     @StateObject private var cinemeta = CinemetaService()
     @StateObject private var streams = StremioStreamService()
 
+    init() {
+        // Phase 4 step 1: touch the torrent engine so the linker keeps the
+        // vendored wrapper + libtorrent. Pure version-string read — creates
+        // no session, no network, no visible behavior change.
+        _ = TorrentEngine.libtorrentVersion
+    }
+
     var body: some Scene {
         WindowGroup {
             TabView {
