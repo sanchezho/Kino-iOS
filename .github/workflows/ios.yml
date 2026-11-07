@@ -80,6 +80,11 @@ jobs:
             git -C Thirdparty/LibTorrent-Swift/Thirdparty/libtorrent remote add origin https://github.com/arvidn/libtorrent.git
             git -C Thirdparty/LibTorrent-Swift/Thirdparty/libtorrent fetch --depth 1 origin 6da363d2994f17c0b3c0450d124cf73a31a73847
             git -C Thirdparty/LibTorrent-Swift/Thirdparty/libtorrent checkout FETCH_HEAD
+            # libtorrent needs its git submodules (deps/try_signal etc.);
+            # without them CMake fails at "Cannot find source file:
+            # deps/try_signal/try_signal.cpp" (run #15).
+            git -C Thirdparty/LibTorrent-Swift/Thirdparty/libtorrent submodule update --init --depth 1
+            test -f Thirdparty/LibTorrent-Swift/Thirdparty/libtorrent/deps/try_signal/try_signal.cpp || { echo "ERROR: try_signal submodule still empty"; exit 1; }
           fi
           # Headers for the app build come from this clone; the .a below
           # comes from the build (or the cache). Pinned: libtorrent 2.1.2.0,
@@ -88,12 +93,28 @@ jobs:
       - name: Configure + build libtorrent (cache miss only)
         if: steps.libtorrent-cache.outputs.cache-hit != 'true'
         run: |
-          cd Thirdparty/LibTorrent-Swift && ./make.sh
-          cmake --build libtorrent-build --config Release -- -sdk iphoneos
-          # Expected output: libtorrent-build/Release-iphoneos/libtorrent-rasterbar.a
-          # (the path the pbxproj links). Verify with the find below.
-          find libtorrent-build -name "*.a" | head
-          ls -lh libtorrent-build/Release-iphoneos/ || true
+          set +e
+          cd Thirdparty/LibTorrent-Swift && zsh make.sh > ../../libtorrent-build.log 2>&1
+          MAKE_CODE=$?
+          cmake --build libtorrent-build --config Release -- -sdk iphoneos >> ../../libtorrent-build.log 2>&1
+          BUILD_CODE=$?
+          find libtorrent-build -name "*.a" | head >> ../../libtorrent-build.log 2>&1
+          ls -lh libtorrent-build/Release-iphoneos/ >> ../../libtorrent-build.log 2>&1 || true
+          {
+            echo "## libtorrent build result"
+            echo "make.sh exit code: $MAKE_CODE"
+            echo "cmake --build exit code: $BUILD_CODE"
+            echo "### Error lines"
+            echo '```'
+            grep -i -m 60 "error" ../../libtorrent-build.log || echo "(no error lines found)"
+            echo '```'
+            echo "### Last 40 lines"
+            echo '```'
+            tail -n 40 ../../libtorrent-build.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$MAKE_CODE" -ne 0 ]; then exit $MAKE_CODE; fi
+          exit $BUILD_CODE
 
       - name: Build (unsigned)
         run: |
@@ -152,4 +173,12 @@ jobs:
         with:
           name: build-log
           path: build.log
+          if-no-files-found: warn
+
+      - name: Upload libtorrent build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: libtorrent-build-log
+          path: libtorrent-build.log
           if-no-files-found: warn
