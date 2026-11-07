@@ -39,6 +39,8 @@ final class TorrentEngine: NSObject, ObservableObject, SessionDelegate {
     /// Documents/torrents — libtorrent's save_path; set by `ensureSession()`.
     private(set) var downloadsDirectory: URL?
     private let httpServer = TorrentHTTPServer()
+    /// Lowercased infoHash of the torrent the HTTP server is serving, if any.
+    private(set) var servingInfoHash: String?
 
     private var handles: [String: TorrentHandle] = [:]
     private var pendingFileIdx: [String: Int] = [:]
@@ -110,6 +112,7 @@ final class TorrentEngine: NSObject, ObservableObject, SessionDelegate {
         if let existing = states[hash] {
             // Only a failed torrent may be re-added (Reintentar).
             guard case .failed = existing else { return }
+            if servingInfoHash == hash { stopServer() }
             if let old = handles[hash] {
                 ensureSession().removeTorrent(old, deleteFiles: false)
             }
@@ -137,10 +140,63 @@ final class TorrentEngine: NSObject, ObservableObject, SessionDelegate {
 
     func remove(infoHash: String, deleteFiles: Bool) {
         let hash = infoHash.lowercased()
+        // Stop the server first so a player never hits a vanishing file.
+        if hash == servingInfoHash { stopServer() }
         if let handle = handles[hash] {
             session?.removeTorrent(handle, deleteFiles: deleteFiles)
         }
         clearEntries(for: hash)
+    }
+
+    /// Removes every torrent and its downloaded files, and stops the server.
+    func removeAllDownloads() {
+        let hashes = Set(handles.keys).union(states.keys)
+        for hash in hashes {
+            remove(infoHash: hash, deleteFiles: true)
+        }
+        stopServer()
+        states.removeAll()
+    }
+
+    /// Total size in bytes of regular files under the downloads directory.
+    func downloadsSize() -> UInt64 {
+        guard let directory = downloadsDirectory ?? Self.defaultDownloadsDirectory(),
+              FileManager.default.fileExists(atPath: directory.path),
+              let enumerator = FileManager.default.enumerator(
+                at: directory,
+                includingPropertiesForKeys: [.isRegularFileKey, .fileSizeKey],
+                options: [],
+                errorHandler: { _, _ in true }
+              ) else { return 0 }
+        var total: UInt64 = 0
+        for case let url as URL in enumerator {
+            guard let values = try? url.resourceValues(forKeys: [.isRegularFileKey, .fileSizeKey]),
+                  values.isRegularFile == true, let size = values.fileSize else { continue }
+            total += UInt64(size)
+        }
+        return total
+    }
+
+    private static func defaultDownloadsDirectory() -> URL? {
+        FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?
+            .appendingPathComponent("torrents")
+    }
+
+    private static let seedKey = "kino.seedAfterFinish"
+
+    /// When false (default) a torrent is paused once it finishes; when true it
+    /// keeps seeding. Changing it applies to already-finished torrents too.
+    var seedAfterFinish: Bool {
+        get { UserDefaults.standard.bool(forKey: Self.seedKey) }
+        set {
+            guard newValue != seedAfterFinish else { return }
+            UserDefaults.standard.set(newValue, forKey: Self.seedKey)
+            for (hash, state) in states {
+                guard case .finished = state, let handle = handles[hash] else { continue }
+                if newValue { handle.resume() } else { handle.pause() }
+            }
+            objectWillChange.send()
+        }
     }
 
     /// Starts the loopback HTTP server for the selected file of `infoHash`
@@ -157,11 +213,14 @@ final class TorrentEngine: NSObject, ObservableObject, SessionDelegate {
         let files = handle.snapshot.files
         guard index >= 0, index < files.count else { return nil }
         let fileURL = directory.appendingPathComponent(files[index].path)
-        return httpServer.start(fileURL: fileURL)
+        let url = httpServer.start(fileURL: fileURL)
+        servingInfoHash = url != nil ? hash : nil
+        return url
     }
 
     func stopServer() {
         httpServer.stop()
+        servingInfoHash = nil
     }
 
     func pauseAll() {
@@ -265,7 +324,7 @@ final class TorrentEngine: NSObject, ObservableObject, SessionDelegate {
 
             if snapshot.isFinished || (size > 0 && downloaded >= size) {
                 newState = .finished(fileName: fileName)
-                shouldPause = true
+                shouldPause = !seedAfterFinish
             } else if downloaded >= threshold {
                 if Self.playableExtensions.contains(ext) {
                     newState = .readyToPlay(fileName: fileName, downloaded: downloaded, total: size)

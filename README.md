@@ -17,7 +17,7 @@ bundled `plugin.js`).
   on the owner's Mac was not confirmed when this scaffold was written;
   the GitHub Actions workflow selects Xcode 16 on `macos-15` when
   available and otherwise uses the runner default).
-- Version: 0.3.0 (Phase 3)
+- Version: 0.4.0 (Phase 4)
 
 ## What works in Phase 1
 
