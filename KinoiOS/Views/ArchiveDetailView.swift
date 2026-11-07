@@ -477,10 +477,6 @@ struct CinemetaDetailView: View {
                         .foregroundStyle(.orange)
                 }
             }
-        case .some(.unsupportedFormat(_, let format)):
-            Text("Este archivo es \(format): AVPlayer no lo reproduce")
-                .font(.caption)
-                .foregroundStyle(.secondary)
         case .some(.failed(let message)):
             Text(message)
                 .font(.caption)

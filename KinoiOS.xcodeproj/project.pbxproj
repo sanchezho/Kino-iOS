@@ -71,6 +71,7 @@
 		6CD0A5E2000000000000001C /* GCDWebServerStreamedResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E1000000000000001C /* GCDWebServerStreamedResponse.m */; };
 		6CD0A5E2000000000000001D /* TorrentHTTPServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0A5E1000000000000001D /* TorrentHTTPServer.swift */; };
 		6CD0A5E2000000000000001E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD0A5E1000000000000001E /* libz.tbd */; };
+		9B163146CD620D97E18C4BFE /* SwiftVLC in Frameworks */ = {isa = PBXBuildFile; productRef = DD61A59B41C39384A21B09C3 /* SwiftVLC */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -195,6 +196,7 @@
 				B18453F260811899E667B9E1 /* libiconv.tbd in Frameworks */,
 				0ADE0EAB207A4C7D9A18C49F /* SystemConfiguration.framework in Frameworks */,
 				6CD0A5E2000000000000001E /* libz.tbd in Frameworks */,
+				9B163146CD620D97E18C4BFE /* SwiftVLC in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -560,6 +562,9 @@
 			dependencies = (
 			);
 			name = KinoiOS;
+			packageProductDependencies = (
+				DD61A59B41C39384A21B09C3 /* SwiftVLC */,
+			);
 			productName = KinoiOS;
 			productReference = F1EADDCC649EF1787B3C699C /* KinoiOS.app */;
 			productType = "com.apple.product-type.application";
@@ -588,6 +593,9 @@
 				Base,
 			);
 			mainGroup = 518DA81DB9B99529C0C0AEBE;
+			packageReferences = (
+				3078C1528FDA6BD577EA8C44 /* XCRemoteSwiftPackageReference "SwiftVLC" */,
+			);
 			productRefGroup = 2F3A6B1E78F896718625FF06 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -694,7 +702,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFS_STRING = "en";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				MTL_FAST_MATH = YES;
@@ -724,7 +732,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFS_STRING = "en";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -758,9 +766,9 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.4.0;
+				MARKETING_VERSION = 0.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanchezho.KinoiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = iphoneos;
@@ -803,9 +811,9 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 0.4.0;
+				MARKETING_VERSION = 0.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.sanchezho.KinoiOS;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = iphoneos;
@@ -851,6 +859,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3078C1528FDA6BD577EA8C44 /* XCRemoteSwiftPackageReference "SwiftVLC" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/harflabs/SwiftVLC.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.1.0-beta.14;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DD61A59B41C39384A21B09C3 /* SwiftVLC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3078C1528FDA6BD577EA8C44 /* XCRemoteSwiftPackageReference "SwiftVLC" */;
+			productName = SwiftVLC;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 	};
 	rootObject = 9364A5F65BEC49955EA355BE /* Project object */;

@@ -5,17 +5,17 @@ enum TorrentPlayState: Equatable {
     case fetchingMetadata(fileName: String?)
     /// `progress` is 0–1 of the WANTED file (not the whole torrent).
     case downloading(progress: Double, rate: UInt64, downloaded: UInt64, total: UInt64, fileName: String)
-    /// Start threshold reached and the file is AVPlayer-playable; playback
-    /// goes through the local HTTP server (`startServer(for:)`).
+    /// Start threshold reached; playback goes through the local HTTP
+    /// server (`startServer(for:)`). Phase 4b: VLC plays every video
+    /// format, so there is no unsupported-format case anymore.
     case readyToPlay(fileName: String, downloaded: UInt64, total: UInt64)
-    case unsupportedFormat(fileName: String, format: String)
     case failed(message: String)
     case finished(fileName: String)
 }
 
 /// Phase 4 step 2 — libtorrent session, magnet add, file selection and
 /// progress. Step 3 added the local HTTP server (`startServer(for:)`) so a
-/// ready file actually plays through AVPlayer.
+/// ready file actually plays through VLC.
 ///
 /// Threading: libtorrent delegate callbacks may arrive on background
 /// threads. Every one of them hops to the main queue before touching any
@@ -48,7 +48,6 @@ final class TorrentEngine: NSObject, ObservableObject, SessionDelegate {
     private var lastPublish: [String: Date] = [:]
 
     private static let videoExtensions: Set<String> = ["mp4", "m4v", "mov", "mkv", "avi", "wmv", "flv"]
-    private static let playableExtensions: Set<String> = ["mp4", "m4v", "mov"]
     private static let publishInterval: TimeInterval = 0.25
 
     private override init() {
@@ -326,7 +325,6 @@ final class TorrentEngine: NSObject, ObservableObject, SessionDelegate {
             guard let index = selectedFile[hash], index >= 0, index < files.count else { return }
             let file = files[index]
             let fileName = (file.name as NSString).lastPathComponent
-            let ext = (file.path as NSString).pathExtension.lowercased()
             let size = file.size
             let downloaded = min(file.downloaded, size)
             let threshold = min(UInt64(5 * 1024 * 1024), size * 2 / 100)
@@ -335,12 +333,9 @@ final class TorrentEngine: NSObject, ObservableObject, SessionDelegate {
                 newState = .finished(fileName: fileName)
                 shouldPause = !seedAfterFinish
             } else if downloaded >= threshold {
-                if Self.playableExtensions.contains(ext) {
-                    newState = .readyToPlay(fileName: fileName, downloaded: downloaded, total: size)
-                } else {
-                    let format = ext.isEmpty ? "desconocido" : ext.uppercased()
-                    newState = .unsupportedFormat(fileName: fileName, format: format)
-                }
+                // Phase 4b: VLC plays every video format, so any file past
+                // the start threshold is ready to play.
+                newState = .readyToPlay(fileName: fileName, downloaded: downloaded, total: size)
             } else {
                 let progress = size > 0 ? Double(downloaded) / Double(size) : 0
                 newState = .downloading(

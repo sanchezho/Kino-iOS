@@ -1,7 +1,7 @@
 import Foundation
 
 /// Phase 4 step 3 — loopback-only HTTP server that serves ONE file with
-/// range-request support, so AVPlayer can play a torrent file while it is
+/// range-request support, so VLC can play a torrent file while it is
 /// still downloading.
 ///
 /// GCDWebServerFileResponse stats the file on every request, so a file that

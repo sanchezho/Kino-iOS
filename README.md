@@ -13,11 +13,9 @@ bundled `plugin.js`).
 - Kino site: https://kinotvapp.github.io/en/ — open source, Apache-2.0,
   generic player; it does not host content itself.
 - Bundle ID: `com.sanchezho.KinoiOS`
-- Target: iOS 17.0, Swift 5.9+, Xcode 15+ (assumption — the Xcode version
-  on the owner's Mac was not confirmed when this scaffold was written;
-  the GitHub Actions workflow selects Xcode 16 on `macos-15` when
-  available and otherwise uses the runner default).
-- Version: 0.4.0 (Phase 4)
+- Target: iOS 18.0 (SwiftVLC requires iOS 18+), Swift 5.0, Xcode 26.4+
+  (the GitHub Actions workflow selects Xcode 26.4+ on `macos-26`).
+- Version: 0.5.0 (Phase 4b)
 
 ## What works in Phase 1
 
@@ -26,7 +24,7 @@ bundled `plugin.js`).
   bundled catalog seed (43 plugins in the seed file).
 - Search across the Phase 1 titles and the plugin catalog.
 - Detail view with Play (only for titles with a stream) and Save.
-- Player: AVPlayer (`VideoPlayer` from AVKit) with continue-watching
+- Player: VLC (`VideoView` from SwiftVLC) with continue-watching
   position saved in UserDefaults.
 - Library: continue-watching positions and saved titles.
 - Settings: version, bundle ID, plugin runtime status, full plugin list.
@@ -67,7 +65,7 @@ Cinemeta Stremio catalog addon from the bundled seed. No API keys.
   Archive detail, which resolves the stream and plays it). New commercial
   releases are not in the archive and show an explicit notice instead of
   the old static "no video" message.
-- Player: AVPlayer over the resolved archive.org MP4/WebM URL, with a
+- Player: VLC over the resolved archive.org MP4/WebM URL, with a
   visible error state when the player item fails (Phase 1 showed a
   black screen). Continue-watching and saved titles now cover Archive
   titles too (they are remembered in full in UserDefaults).
@@ -122,7 +120,7 @@ user-configured Stremio add-ons). No API keys, no new tabs.
   {base}/stream/{type}/{imdbId}.json`. Each source shows its name and
   details (size, quality, seeders when the add-on provides them).
 - **Direct-URL streams play**: a "Ver" button opens the existing
-  player (AVPlayer) with the stream URL.
+  player (VLC) with the stream URL.
 - **Torrent streams are listed, not played**: Torrentio's default
   configuration returns `infoHash` + tracker/DHT sources and no
   direct URL. Those rows show "Torrent — sin motor en iOS". Playing
@@ -193,7 +191,7 @@ KinoiOS/
   Models/ArchiveItem.swift    Internet Archive item / row / episode models
   Services/PluginCatalogService.swift   Loads bundled catalog seed
   Services/PluginRuntime.swift        JavaScriptCore plugin runtime
-  Services/PlaybackService.swift      AVPlayer + positions + saved
+  Services/PlaybackService.swift      VLC Player + positions + saved
   Services/ArchiveService.swift       Internet Archive plugin, native
   Services/CinemetaService.swift      Cinemeta catalog (Stremio addon)
   Services/StremioStreamService.swift Stremio streaming add-on (Torrentio default)

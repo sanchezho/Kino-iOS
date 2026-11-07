@@ -1,27 +1,85 @@
-import AVKit
-import Combine
 import Foundation
+import SwiftVLC
 
-/// AVPlayer wrapper with continue-watching position and saved titles,
-/// both persisted in UserDefaults. Phase 2: titles played from Internet
-/// Archive are remembered in full (so Library can show them later),
-/// not only the Phase 1 sample titles.
+/// VLC player wrapper with continue-watching position and saved titles,
+/// both persisted in UserDefaults. Phase 4b: a single SwiftVLC `Player`
+/// replaces AVPlayer for ALL playback (Archive direct streams, Cinemeta
+/// direct streams, torrents through the local HTTP server). VLC plays
+/// MP4/MOV as well as MKV/AVI/WMV/FLV, so there is no per-format routing
+/// and no unsupported-format dead end.
+///
+/// The position / saved-titles / known-titles logic is player-agnostic
+/// and unchanged from the AVPlayer era: positions are still stored as
+/// Double seconds under `kino.position.<title-id>`, so positions saved
+/// by 0.4.0 keep working.
 ///
 /// No downloads, no background audio session configuration beyond
-/// AVPlayer defaults.
+/// VLC defaults.
+@MainActor
 final class PlaybackService: ObservableObject {
-    @Published private(set) var player = AVPlayer()
+    /// The single shared VLC player. `Player()` only builds the libVLC
+    /// instance; no media is loaded and no network happens here.
+    let vlcPlayer = Player()
+
     @Published private(set) var currentTitle: TitleItem?
     @Published private(set) var isPlaying = false
-    /// Set when the current player item fails (e.g. a dead stream URL),
-    /// so the player shows the error instead of a black screen.
+    /// Set when the current playback fails (a bad URL throws from
+    /// `play(url:)`, a bad stream surfaces as a VLC error event), so the
+    /// player shows the error instead of a black screen.
     @Published private(set) var playerError: String?
+    /// Live playback position for the control bar (seconds). Updated by a
+    /// 0.5 s poll while a title is loaded; 0 duration means unknown/live.
+    @Published private(set) var currentTimeSeconds: Double = 0
+    @Published private(set) var durationSeconds: Double = 0
 
     private let savedKey = "kino.savedTitleIDs"
     private let continueKey = "kino.continueWatchingIDs"
     private let knownTitlesKey = "kino.knownTitles"
 
-    private var statusObservation: AnyCancellable?
+    /// Surfaces VLC failures: libVLC reports a bad stream as
+    /// `.encounteredError` / state `.error`, not as a throw from play().
+    private var errorTask: Task<Void, Never>?
+    /// Polls VLC time/duration for the control bar.
+    private var timeTask: Task<Void, Never>?
+    /// Waits for a seekable duration, then restores a saved position.
+    private var restoreTask: Task<Void, Never>?
+
+    init() {
+        errorTask = Task { [weak self] in
+            guard let self else { return }
+            for await event in self.vlcPlayer.events {
+                switch event {
+                case .encounteredError, .stateChanged(.error):
+                    self.playerError = "No se pudo reproducir el video."
+                    self.isPlaying = false
+                case .endReached:
+                    self.isPlaying = false
+                default:
+                    break
+                }
+            }
+        }
+        timeTask = Task { [weak self] in
+            while true {
+                if Task.isCancelled { return }
+                guard let self else { return }
+                if self.currentTitle != nil {
+                    let current = Double(self.vlcPlayer.currentTime.milliseconds) / 1000.0
+                    let total = self.vlcPlayer.duration.map { Double($0.milliseconds) / 1000.0 } ?? 0
+                    if abs(current - self.currentTimeSeconds) > 0.25 {
+                        self.currentTimeSeconds = current
+                    }
+                    if total != self.durationSeconds {
+                        self.durationSeconds = total
+                    }
+                } else if self.currentTimeSeconds != 0 || self.durationSeconds != 0 {
+                    self.currentTimeSeconds = 0
+                    self.durationSeconds = 0
+                }
+                try? await Task.sleep(for: .milliseconds(500))
+            }
+        }
+    }
 
     private func positionKey(for id: String) -> String {
         "kino.position.\(id)"
@@ -30,25 +88,51 @@ final class PlaybackService: ObservableObject {
     func play(_ title: TitleItem) {
         guard let url = title.streamURL else { return }
         savePosition()
+        restoreTask?.cancel()
+        restoreTask = nil
         remember(title)
         currentTitle = title
         playerError = nil
-        let item = AVPlayerItem(url: url)
-        player.replaceCurrentItem(with: item)
-        statusObservation = item.publisher(for: \.status, options: [.initial, .new])
-            .sink { [weak self] status in
-                if status == .failed {
-                    self?.playerError = item.error?.localizedDescription
-                        ?? "No se pudo reproducir el video."
-                }
-            }
-        let saved = position(for: title)
-        if saved > 1 {
-            player.seek(to: CMTime(seconds: saved, preferredTimescale: 600))
+        isPlaying = false
+        currentTimeSeconds = 0
+        durationSeconds = 0
+        do {
+            try vlcPlayer.play(url: url)
+        } catch {
+            playerError = error.localizedDescription
+            return
         }
-        player.play()
         isPlaying = true
         markContinueWatching(title)
+        restoreSavedPosition(for: title)
+    }
+
+    /// Restores the saved position once the player knows the duration
+    /// and is seekable. `seek(to: Duration)` throws while the duration
+    /// is unknown, so this polls the (observable) player state instead
+    /// of seeking right after `play(url:)`. Gives up after 30 s (live
+    /// streams and unparseable media never report a duration) and on
+    /// title change; the position is simply not restored in that case.
+    private func restoreSavedPosition(for title: TitleItem) {
+        let saved = position(for: title)
+        guard saved > 1 else { return }
+        let titleID = title.id
+        restoreTask = Task { [weak self] in
+            let deadline = Date().addingTimeInterval(30)
+            while Date() < deadline {
+                if Task.isCancelled { return }
+                guard let self else { return }
+                guard self.currentTitle?.id == titleID else { return }
+                if let duration = self.vlcPlayer.duration, self.vlcPlayer.isSeekable {
+                    let total = Double(duration.milliseconds) / 1000.0
+                    if total > 0, saved < total {
+                        try? self.vlcPlayer.seek(to: Duration.seconds(saved))
+                    }
+                    return
+                }
+                try? await Task.sleep(for: .milliseconds(250))
+            }
+        }
     }
 
     /// Play an Internet Archive title (or one of its episodes) once its
@@ -74,23 +158,26 @@ final class PlaybackService: ObservableObject {
 
     func pause() {
         savePosition()
-        player.pause()
+        vlcPlayer.pause()
         isPlaying = false
     }
 
     func resume() {
         guard currentTitle != nil else { return }
-        player.play()
+        vlcPlayer.resume()
         isPlaying = true
     }
 
     func seek(to seconds: Double) {
-        player.seek(to: CMTime(seconds: seconds, preferredTimescale: 600))
+        guard seconds.isFinite, seconds >= 0 else { return }
+        try? vlcPlayer.seek(to: Duration.seconds(seconds))
     }
 
+    /// Saves the current VLC time as Double seconds, same key and format
+    /// as the AVPlayer era, so stored positions survive the switch.
     func savePosition() {
         guard let title = currentTitle else { return }
-        let seconds = player.currentTime().seconds
+        let seconds = Double(vlcPlayer.currentTime.milliseconds) / 1000.0
         guard seconds.isFinite, seconds > 0 else { return }
         UserDefaults.standard.set(seconds, forKey: positionKey(for: title.id))
     }

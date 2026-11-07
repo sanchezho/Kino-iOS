@@ -32,7 +32,7 @@ struct TitleItem: Identifiable, Hashable, Codable {
 }
 
 extension TitleItem {
-    /// Apple sample HLS stream, used only to test AVPlayer.
+    /// Apple sample HLS stream, used only to test the player.
     /// This is not an Internet Archive file and not a Kino title.
     /// The HEVC example URL used in Phase 1 is dead (it 302-redirects to
     /// developer.apple.com/videos/); this classic BipBop URL was verified
@@ -47,7 +47,7 @@ extension TitleItem {
             title: "Test stream — BipBop (muestra de Apple)",
             kind: .movie,
             posterURL: nil,
-            synopsis: "Stream HLS de prueba de Apple, solo para verificar que AVPlayer reproduce en esta app. No es un título de Kino ni un archivo de Internet Archive.",
+            synopsis: "Stream HLS de prueba de Apple, solo para verificar que el reproductor funciona en esta app. No es un título de Kino ni un archivo de Internet Archive.",
             year: nil,
             pluginId: "internet-archive",
             streamURL: sampleHLS

@@ -1,6 +1,6 @@
 import SwiftUI
 
-/// Kino iOS — Phase 3.
+/// Kino iOS — Phase 4b.
 ///
 /// Clean-room iOS rewrite of Kino TV (Android, Kotlin + Jetpack Compose).
 /// An APK cannot be converted to an IPA; this is a new SwiftUI app that
@@ -15,7 +15,8 @@ import SwiftUI
 /// Cinemeta detail: real stream sources are listed, direct-URL streams
 /// play, torrent streams are listed. Phase 4 step 2 adds the torrent
 /// engine (download with progress); playback of torrents waits for the
-/// local HTTP server (step 3).
+/// local HTTP server (step 3). Phase 4b replaces AVPlayer with a single
+/// SwiftVLC Player for all playback (MP4/MOV as well as MKV/AVI/WMV/FLV).
 @main
 struct KinoiOSApp: App {
     @StateObject private var catalog = PluginCatalogService()

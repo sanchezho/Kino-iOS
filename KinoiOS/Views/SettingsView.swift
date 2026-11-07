@@ -26,9 +26,9 @@ struct SettingsView: View {
             List {
                 Section("Acerca de") {
                     LabeledContent("App", value: "Kino iOS")
-                    LabeledContent("Versión", value: "0.4.0 (Fase 4)")
+                    LabeledContent("Versión", value: "0.5.0 (Fase 4b)")
                     LabeledContent("Bundle ID", value: "com.sanchezho.KinoiOS")
-                    LabeledContent("iOS mínimo", value: "17.0")
+                    LabeledContent("iOS mínimo", value: "18.0")
                     Text("Reescritura limpia para iOS de Kino TV. No es una conversión del APK de Android: la interfaz, la reproducción y el runtime de plugins están reescritos en Swift. Fase 2: catálogos reales de Internet Archive y Cinemeta, con pósters y reproducción.")
                         .font(.caption)
                         .foregroundStyle(.secondary)
@@ -82,7 +82,7 @@ struct SettingsView: View {
                     Button("Restablecer") {
                         streams.resetToDefault()
                     }
-                    Text("El detalle de cada título lista las fuentes de este add-on. Los streams con URL directa se reproducen; los torrents se descargan con el motor integrado y los archivos MP4/MOV se reproducen mediante el servidor local. Los archivos MKV no los puede reproducir AVPlayer.")
+                    Text("El detalle de cada título lista las fuentes de este add-on. Los streams con URL directa y los torrents se reproducen con VLC (motor integrado), que abre MP4, MKV y más formatos; los torrents se sirven por el servidor local.")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
