@@ -66,7 +66,7 @@ struct DetailView: View {
         }
         .navigationTitle(title.title)
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $showingPlayer) {
+        .fullScreenCover(isPresented: $showingPlayer) {
             PlayerView()
         }
     }

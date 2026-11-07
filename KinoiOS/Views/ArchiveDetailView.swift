@@ -139,7 +139,7 @@ struct ArchiveDetailView: View {
         }
         .navigationTitle(item.title)
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $showingPlayer) {
+        .fullScreenCover(isPresented: $showingPlayer) {
             PlayerView()
         }
         .task {
@@ -398,7 +398,7 @@ struct CinemetaDetailView: View {
         }
         .navigationTitle(item.title)
         .navigationBarTitleDisplayMode(.inline)
-        .sheet(isPresented: $showingPlayer) {
+        .fullScreenCover(isPresented: $showingPlayer) {
             PlayerView()
         }
         .task {
