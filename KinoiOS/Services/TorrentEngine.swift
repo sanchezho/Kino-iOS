@@ -83,7 +83,7 @@ final class TorrentEngine: NSObject, ObservableObject, SessionDelegate {
         settings.port = 6881
 
         let created = Session(
-            downloadPath: downloadPath,
+            downloadPath,
             torrentsPath: statePath,
             fastResumePath: statePath,
             settings: settings,

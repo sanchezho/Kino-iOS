@@ -27,5 +27,17 @@ were applied to the vendored copies (upstream files untouched):
    `Session.swift`; in the app target those Swift files compile into the
    `KinoiOS` module, so the generated header is `KinoiOS-Swift.h`.
 
+3. 2026-11-07 (CI run #18 compile errors) `LibTorrent/Core/Session/Session.swift`:
+   removed the entire `extension StorageModel: Codable { ... }` block
+   (`init(uuid:name:pathBookmark:)` convenience init, `required convenience
+   init(from:)`, `encode(to:)`, private `CodingKeys`). Reason: Swift forbids
+   `required` initializers in an extension, and a non-final ObjC class
+   (`StorageModel : NSObject`) cannot satisfy `Decodable.init(from:)` from an
+   extension (2 compile errors). Repo-wide grep found no use of StorageModel
+   Codable, JSONEncoder/Decoder with it, or the removed convenience init (the
+   app passes `storages: [:]`). `@objc public extension StorageModel`
+   (`resolveSequrityScopes`, used by Session.mm) and
+   `extension StorageModel: Identifiable` are untouched.
+
 No other changes. If the wrapper is ever re-vendored from a newer commit,
-re-apply these two patches and update the commit SHA above.
+re-apply these three patches and update the commit SHA above.
